@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Track {
+class Track extends StatelessWidget {
   final title;
 
   Track({this.title});
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Text(this.title),
-        ],
-      ),
+    return ListTile(
+      title: Text(this.title),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Preview.dart';
 import 'package:flutter_app/album.dart';
+import 'package:flutter_app/track.dart';
 
 class Artist extends StatelessWidget {
   final name;
@@ -43,7 +44,7 @@ final Artist weeknd = Artist(
     Album(
       title: 'Starboy',
       coverUrl:
-          'https://lh3.googleusercontent.com/proxy/ifosG5zhJQwUfDwWVfu-Q8rXc2ED_RMhaQQfW4axx1mrv8HetYpOeXfaCBBnUbhKxHsxEzcKykXWp3Alb_dp15vzIjEUirKnHkIONJeh5FSDl5Lut9E4U-wmjT8',
+          'https://slm-assets.secondlife.com/assets/16223371/view_large/daft-punk-feat-the-weeknd-starboy.jpg?1485976665',
     )
   ],
 );
@@ -61,6 +62,13 @@ final Artist spiritbox = Artist(
     Album(
       title: 'Singles Collection',
       coverUrl: 'https://f4.bcbits.com/img/a2470668882_10.jpg',
+      tracks: [
+        Track(title: 'Perrenial'),
+        Track(title: 'Electric Cross'),
+        Track(title: 'Trust Fall'),
+        Track(title: 'Belcarra'),
+        Track(title: 'Bleach Bath'),
+      ],
     ),
     Album(
       title: 'Holly Roller',
