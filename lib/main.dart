@@ -10,9 +10,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme:
+          ThemeData(primarySwatch: Colors.blue, primaryColorDark: Colors.black),
       home: HomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -29,70 +28,91 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int index = 0;
+  GlobalKey<NavigatorState> navKey = GlobalKey();
+  Artist currentArtist;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Navigator(
-        onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            settings: settings,
-            builder: (BuildContext context) {
-              switch (settings.name) {
-                case '/':
-                  return Container(
-                    color: Colors.black,
-                    child: MyGridViewBuilder(content: artists),
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  );
-                case '/albums':
-                  final artistName = settings.arguments;
-                  final albums = artists
-                      .firstWhere((element) => element.name == artistName)
-                      .albums;
-                  return Container(
-                    color: Colors.black,
-                    child: MyGridViewBuilder(content: albums),
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  );
-              }
-            },
-          );
-        },
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.grey[900],
+    return WillPopScope(
+      onWillPop: () async {
+        navKey.currentState.maybePop();
+        return false;
+      },
+      child: Scaffold(
+        body: Navigator(
+          key: navKey,
+          onGenerateRoute: (RouteSettings settings) {
+            return MaterialPageRoute(
+              settings: settings,
+              builder: (BuildContext context) {
+                switch (settings.name) {
+                  case '/':
+                    return Container(
+                      color: Colors.black,
+                      child: MyGridViewBuilder(content: artists),
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    );
+                  case '/albums':
+                    final artistName = settings.arguments;
+                    currentArtist = artists
+                        .firstWhere((element) => element.name == artistName);
+                    final albums = currentArtist.albums;
+
+                    return Container(
+                      color: Colors.black,
+                      child: MyGridViewBuilder(content: albums),
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    );
+                  case '/tracks':
+                    final tracks = currentArtist.albums
+                        .firstWhere(
+                            (element) => element.title == settings.arguments)
+                        .tracks;
+                    return Container(
+                      child: ListView.builder(
+                        itemCount: tracks.length,
+                        itemBuilder: (context, index) => tracks[index],
+                      ),
+                    );
+                }
+              },
+            );
+          },
         ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: index,
-          showUnselectedLabels: true,
-          unselectedItemColor: Colors.white54,
-          selectedItemColor: Colors.white,
-          onTap: ((int x) {
-            setState(() {
-              index = x;
-            });
-          }),
-          items: [
-            new BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            new BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            new BottomNavigationBarItem(
-              icon: Icon(Icons.library_music),
-              label: 'My Songs',
-            ),
-            new BottomNavigationBarItem(
-              icon: Icon(Icons.library_books),
-              label: 'My Words',
-            ),
-          ],
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.grey[900],
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: index,
+            showUnselectedLabels: true,
+            unselectedItemColor: Colors.white54,
+            selectedItemColor: Colors.white,
+            onTap: ((int x) {
+              setState(() {
+                index = x;
+              });
+            }),
+            items: [
+              new BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              new BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+              new BottomNavigationBarItem(
+                icon: Icon(Icons.library_music),
+                label: 'My Songs',
+              ),
+              new BottomNavigationBarItem(
+                icon: Icon(Icons.library_books),
+                label: 'My Words',
+              ),
+            ],
+          ),
         ),
       ),
     );
