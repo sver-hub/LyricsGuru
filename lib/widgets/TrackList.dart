@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/artist.dart';
+import 'package:flutter_app/album.dart';
 
-class AlbumGrid extends StatelessWidget {
-  final Artist artist;
+class TrackList extends StatelessWidget {
+  final Album album;
 
-  const AlbumGrid({Key key, this.artist}) : super(key: key);
-
+  const TrackList({Key key, this.album}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +20,7 @@ class AlbumGrid extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20.0),
                         child: Image(
-                          image: NetworkImage(this.artist.thumbnailUrl),
+                          image: NetworkImage(this.album.coverUrl),
                           fit: BoxFit.fitWidth,
                         ),
                       ),
@@ -31,22 +30,25 @@ class AlbumGrid extends StatelessWidget {
                       left: 10.0,
                       child: Row(
                         children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
+                          Container(
+                            color: Colors.black,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                              iconSize: 30.0,
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
-                            iconSize: 30.0,
-                            onPressed: () => Navigator.of(context).pop(),
                           ),
                           SizedBox(width: 20.0),
                           Text(
-                            this.artist.name,
+                            this.album.title,
                             style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                backgroundColor: Colors.black),
                           ),
                         ],
                       ),
@@ -57,15 +59,11 @@ class AlbumGrid extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
-            sliver: SliverGrid.count(
-              crossAxisCount: 2,
-              children: this.artist.albums,
-              crossAxisSpacing: 20.0,
-              mainAxisSpacing: 20.0,
-              childAspectRatio: 0.77,
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(this.album.tracks),
             ),
-          )
+          ),
         ],
       ),
     );

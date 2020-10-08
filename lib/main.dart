@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/MyGrigViewBuilder.dart';
 import 'package:flutter_app/artist.dart';
 import 'package:flutter_app/widgets/AlbumGrid.dart';
 import 'package:flutter_app/widgets/ArtistGrid.dart';
+import 'package:flutter_app/widgets/TrackList.dart';
 
 void main() => runApp(MyApp());
 
@@ -57,15 +57,10 @@ class _HomePageState extends State<HomePage> {
 
                     return AlbumGrid(artist: currentArtist);
                   case '/tracks':
-                    final tracks = currentArtist.albums
-                        .firstWhere(
-                            (element) => element.title == settings.arguments)
-                        .tracks;
-                    return Container(
-                      child: ListView.builder(
-                        itemCount: tracks.length,
-                        itemBuilder: (context, index) => tracks[index],
-                      ),
+                    final album = currentArtist.albums.firstWhere(
+                        (element) => element.title == settings.arguments);
+                    return TrackList(
+                      album: album,
                     );
                 }
               },
