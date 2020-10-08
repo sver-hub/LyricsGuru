@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/MyGrigViewBuilder.dart';
 import 'package:flutter_app/artist.dart';
+import 'package:flutter_app/widgets/AlbumGrid.dart';
+import 'package:flutter_app/widgets/ArtistGrid.dart';
 
 void main() => runApp(MyApp());
 
@@ -47,22 +49,13 @@ class _HomePageState extends State<HomePage> {
               builder: (BuildContext context) {
                 switch (settings.name) {
                   case '/':
-                    return Container(
-                      color: Colors.black,
-                      child: MyGridViewBuilder(content: artists),
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    );
+                    return ArtistGrid();
                   case '/albums':
                     final artistName = settings.arguments;
                     currentArtist = artists
                         .firstWhere((element) => element.name == artistName);
-                    final albums = currentArtist.albums;
 
-                    return Container(
-                      color: Colors.black,
-                      child: MyGridViewBuilder(content: albums),
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    );
+                    return AlbumGrid(artist: currentArtist);
                   case '/tracks':
                     final tracks = currentArtist.albums
                         .firstWhere(

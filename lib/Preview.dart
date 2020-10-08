@@ -15,13 +15,14 @@ class Preview extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fitHeight,
+              child: Hero(
+                tag: this.imgUrl,
+                child: ClipRRect(
+                  child: Image(
+                    fit: BoxFit.cover,
                     image: NetworkImage(this.imgUrl),
                   ),
-                  borderRadius: BorderRadius.circular(this.rounded ? 100 : 0),
+                  borderRadius: BorderRadius.circular(this.rounded ? 100 : 10),
                 ),
               ),
             ),
@@ -30,7 +31,11 @@ class Preview extends StatelessWidget {
             ),
             Text(
               this.title,
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
               softWrap: false,
             ),
           ],

@@ -14,11 +14,6 @@ class Album extends StatelessWidget {
     return GestureDetector(
       onTap: () =>
           Navigator.of(context).pushNamed('/tracks', arguments: this.title),
-      child: Preview(
-        imgUrl: this.coverUrl,
-        title: this.title,
-        rounded: false,
-      ),
     );
   }
 }
