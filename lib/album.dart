@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/track.dart';
+import 'package:flutter_app/widgets/TrackList.dart';
 
 class Album extends StatelessWidget {
   final title;
@@ -12,19 +13,25 @@ class Album extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.of(context).pushNamed('/tracks', arguments: this.title),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => TrackList(
+          album: this,
+        ),
+      )),
       child: SizedBox.expand(
         child: Container(
           child: Column(
             children: [
               Expanded(
-                child: ClipRRect(
-                  child: Image(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(this.coverUrl),
+                child: Hero(
+                  tag: this.coverUrl,
+                  child: ClipRRect(
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(this.coverUrl),
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
               SizedBox(

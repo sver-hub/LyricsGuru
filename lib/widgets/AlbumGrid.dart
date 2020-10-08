@@ -15,43 +15,46 @@ class AlbumGrid extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Stack(
-                  children: [
-                    Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image(
-                          image: NetworkImage(this.artist.thumbnailUrl),
-                          fit: BoxFit.fitWidth,
+                Hero(
+                  tag: this.artist.thumbnailUrl,
+                  child: Stack(
+                    children: [
+                      Container(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Image(
+                            image: NetworkImage(this.artist.thumbnailUrl),
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 10.0,
-                      left: 10.0,
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
+                      Positioned(
+                        bottom: 10.0,
+                        left: 10.0,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                              iconSize: 30.0,
+                              onPressed: () => Navigator.of(context).pop(),
                             ),
-                            iconSize: 30.0,
-                            onPressed: () => Navigator.of(context).pop(),
-                          ),
-                          SizedBox(width: 20.0),
-                          Text(
-                            this.artist.name,
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                            SizedBox(width: 20.0),
+                            Text(
+                              this.artist.name,
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               ],
             ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/artist.dart';
-import 'package:flutter_app/widgets/AlbumGrid.dart';
 import 'package:flutter_app/widgets/ArtistGrid.dart';
-import 'package:flutter_app/widgets/TrackList.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,8 +10,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme:
-          ThemeData(primarySwatch: Colors.blue, primaryColorDark: Colors.black),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        primaryColorDark: Colors.black,
+      ),
       home: HomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         body: Navigator(
           key: navKey,
+          observers: [HeroController()],
           onGenerateRoute: (RouteSettings settings) {
             return MaterialPageRoute(
               settings: settings,
@@ -50,18 +51,6 @@ class _HomePageState extends State<HomePage> {
                 switch (settings.name) {
                   case '/':
                     return ArtistGrid();
-                  case '/albums':
-                    final artistName = settings.arguments;
-                    currentArtist = artists
-                        .firstWhere((element) => element.name == artistName);
-
-                    return AlbumGrid(artist: currentArtist);
-                  case '/tracks':
-                    final album = currentArtist.albums.firstWhere(
-                        (element) => element.title == settings.arguments);
-                    return TrackList(
-                      album: album,
-                    );
                 }
               },
             );

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/album.dart';
 import 'package:flutter_app/track.dart';
+import 'package:flutter_app/widgets/AlbumGrid.dart';
 
 class Artist extends StatelessWidget {
   final name;
@@ -14,19 +15,25 @@ class Artist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.of(context).pushNamed('/albums', arguments: this.name),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => AlbumGrid(
+          artist: this,
+        ),
+      )),
       child: SizedBox.expand(
         child: Container(
           child: Column(
             children: [
               Expanded(
-                child: ClipRRect(
-                  child: Image(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(this.thumbnailUrl),
+                child: Hero(
+                  tag: this.thumbnailUrl,
+                  child: ClipRRect(
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(this.thumbnailUrl),
+                    ),
+                    borderRadius: BorderRadius.circular(100),
                   ),
-                  borderRadius: BorderRadius.circular(100),
                 ),
               ),
               SizedBox(
