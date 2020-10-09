@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widgets/ArtistGrid.dart';
+import 'package:flutter_app/screens/LibraryPage/ArtistsScreen.dart';
 
 class LibraryScreen extends StatefulWidget {
   final GlobalKey<NavigatorState> navKey;
@@ -24,7 +24,7 @@ class _LibraryScreenState extends State<LibraryScreen>
           builder: (BuildContext context) {
             switch (settings.name) {
               case '/':
-                return ArtistGrid();
+                return ArtistsScreen();
             }
           },
         );

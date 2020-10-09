@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/album.dart';
 
-class TrackList extends StatelessWidget {
+class TracksScreen extends StatelessWidget {
   final Album album;
 
-  const TrackList({Key key, this.album}) : super(key: key);
+  const TracksScreen({Key key, this.album}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,13 +44,18 @@ class TrackList extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 20.0),
-                            Text(
-                              this.album.title,
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  backgroundColor: Colors.black),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 80,
+                              child: Text(
+                                this.album.title,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    backgroundColor: Colors.black),
+                              ),
                             ),
                           ],
                         ),

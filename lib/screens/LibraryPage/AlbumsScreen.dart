@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/artist.dart';
 
-class AlbumGrid extends StatelessWidget {
+class AlbumsScreen extends StatelessWidget {
   final Artist artist;
 
-  const AlbumGrid({Key key, this.artist}) : super(key: key);
+  const AlbumsScreen({Key key, this.artist}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

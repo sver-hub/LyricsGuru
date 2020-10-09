@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/LibraryPage/tracksScreen.dart';
 import 'package:flutter_app/track.dart';
-import 'package:flutter_app/widgets/TrackList.dart';
 
 class Album extends StatelessWidget {
   final title;
@@ -14,7 +14,7 @@ class Album extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => TrackList(
+        builder: (context) => TracksScreen(
           album: this,
         ),
       )),

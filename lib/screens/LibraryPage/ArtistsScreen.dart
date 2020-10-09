@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/artist.dart';
 
-class ArtistGrid extends StatelessWidget {
+class ArtistsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
