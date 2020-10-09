@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/artist.dart';
+import 'package:flutter_app/screens/navScreen.dart';
 import 'package:flutter_app/widgets/ArtistGrid.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+mixin PortraitModeMixin on StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    _portraitModeOnly();
+    return null;
+  }
+}
+
+void _portraitModeOnly() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+}
+
+class MyApp extends StatelessWidget with PortraitModeMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -14,7 +31,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColorDark: Colors.black,
       ),
-      home: HomePage(title: 'Flutter Demo Home Page'),
+      home: NavScreen(), //HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -31,7 +48,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int index = 0;
   GlobalKey<NavigatorState> navKey = GlobalKey();
-  Artist currentArtist;
 
   @override
   Widget build(BuildContext context) {
