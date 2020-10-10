@@ -27,9 +27,15 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColorDark: Colors.black,
-      ),
+          brightness: Brightness.dark,
+          accentColor: Colors.white54,
+          canvasColor: Colors.black,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey[900],
+            unselectedItemColor: Colors.white54,
+            selectedItemColor: Colors.white,
+            type: BottomNavigationBarType.fixed,
+          )),
       home: NavScreen(), //HomePage(title: 'Flutter Demo Home Page'),
     );
   }

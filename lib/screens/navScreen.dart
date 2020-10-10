@@ -41,21 +41,21 @@ class _NavScreenState extends State<NavScreen> {
         ),
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-            canvasColor: Colors.grey[900],
-          ),
+              canvasColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor),
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: _selectedIndex,
             showUnselectedLabels: true,
-            unselectedItemColor: Colors.white54,
-            selectedItemColor: Colors.white,
-            onTap: ((int x) {
-              setState(() {
-                _selectedIndex = x;
+            onTap: (int idx) => setState(() {
+              if (_selectedIndex != idx) {
+                _selectedIndex = idx;
                 _pageController.animateToPage(_selectedIndex,
                     duration: Duration(milliseconds: 300),
                     curve: Curves.fastOutSlowIn);
-              });
+              } else {
+                navKey.currentState.popUntil((route) => route.isFirst);
+              }
             }),
             items: [
               new BottomNavigationBarItem(
