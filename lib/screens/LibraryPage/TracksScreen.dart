@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/album.dart';
+import 'package:flutter_app/screens/LibraryPage/widgets/AnalyseButton.dart';
 
 class TracksScreen extends StatelessWidget {
   final Album album;
@@ -19,11 +20,27 @@ class TracksScreen extends StatelessWidget {
                   child: Stack(
                     children: [
                       Container(
+                        height: MediaQuery.of(context).size.width,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
                             image: NetworkImage(this.album.coverUrl),
-                            fit: BoxFit.fitWidth,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          gradient: LinearGradient(
+                            begin: FractionalOffset(0.5, 0.7),
+                            end: FractionalOffset.bottomCenter,
+                            colors: [
+                              Colors.grey.withOpacity(0.0),
+                              Colors.black.withOpacity(0.4),
+                            ],
+                            stops: [0.0, 1.0],
                           ),
                         ),
                       ),
@@ -33,7 +50,6 @@ class TracksScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Container(
-                              color: Colors.black,
                               child: IconButton(
                                 icon: Icon(
                                   Icons.arrow_back,
@@ -50,9 +66,9 @@ class TracksScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w600,
-                                    backgroundColor: Colors.black),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ],
@@ -70,6 +86,16 @@ class TracksScreen extends StatelessWidget {
               delegate: SliverChildListDelegate(this.album.tracks),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
+                  child: AnalyseButton(),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

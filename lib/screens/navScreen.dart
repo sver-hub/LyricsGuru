@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/LearnPage/learnScreen.dart';
 import 'package:flutter_app/screens/LibraryPage/libararyScreen.dart';
 
 class NavScreen extends StatefulWidget {
@@ -17,12 +18,20 @@ class _NavScreenState extends State<NavScreen> {
   void initState() {
     super.initState();
     screens = [
+      Scaffold(
+        body: Center(
+          child: Text('Home'),
+        ),
+      ),
+      Scaffold(
+        body: Center(
+          child: Text('Search?'),
+        ),
+      ),
       LibraryScreen(
         navKey: navKey,
       ),
-      Scaffold(),
-      Scaffold(),
-      Scaffold(),
+      LearnScreen(),
     ];
   }
 
