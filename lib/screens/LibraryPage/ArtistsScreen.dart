@@ -5,7 +5,6 @@ class ArtistsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
       padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
       child: CustomScrollView(
         slivers: [
@@ -17,7 +16,6 @@ class ArtistsScreen extends StatelessWidget {
                   child: Text(
                     'Your Music',
                     style: TextStyle(
-                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                     ),

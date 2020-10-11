@@ -37,7 +37,6 @@ class TracksScreen extends StatelessWidget {
                               child: IconButton(
                                 icon: Icon(
                                   Icons.arrow_back,
-                                  color: Colors.white,
                                 ),
                                 iconSize: 30.0,
                                 onPressed: () => Navigator.of(context).pop(),
@@ -53,7 +52,6 @@ class TracksScreen extends StatelessWidget {
                                 style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.white,
                                     backgroundColor: Colors.black),
                               ),
                             ),

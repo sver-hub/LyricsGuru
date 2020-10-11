@@ -42,7 +42,6 @@ class Album extends StatelessWidget {
                 child: Text(
                   this.title,
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
                   ),

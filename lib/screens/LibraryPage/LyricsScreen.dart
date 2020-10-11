@@ -34,7 +34,6 @@ class _LyricsScreenState extends State<LyricsScreen> {
                       'Back to ' + widget.track.albumTitle,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Colors.white,
                         fontSize: 18,
                       ),
                     ),
@@ -49,7 +48,6 @@ class _LyricsScreenState extends State<LyricsScreen> {
                 child: Text(
                   widget.track.title,
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.8,
@@ -83,7 +81,9 @@ class _LyricsScreenState extends State<LyricsScreen> {
                 width: double.infinity,
                 child: Text(
                   widget.track.lyrics ?? 'lyrics',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),

@@ -21,12 +21,16 @@ class Track extends StatelessWidget {
       ),
       title: Text(
         this.title,
-        style: TextStyle(color: Colors.white, fontSize: 24),
+        style: TextStyle(
+          fontSize: 24,
+        ),
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
         this.artistName + ' - ' + this.albumTitle,
-        style: TextStyle(color: Colors.white54),
+        style: TextStyle(
+          color: Colors.white54,
+        ),
       ),
     );
   }

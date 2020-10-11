@@ -42,7 +42,6 @@ class Artist extends StatelessWidget {
               Text(
                 this.name,
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 1.2,
