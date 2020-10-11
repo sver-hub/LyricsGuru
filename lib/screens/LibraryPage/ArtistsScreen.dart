@@ -5,6 +5,12 @@ class ArtistsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        begin: FractionalOffset.topLeft, //(-0.5, -0.5),
+        end: FractionalOffset.center,
+        colors: [Colors.orange[900], Colors.black],
+      )),
       padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
       child: CustomScrollView(
         slivers: [

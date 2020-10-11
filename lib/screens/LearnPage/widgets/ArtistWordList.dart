@@ -5,18 +5,22 @@ class ArtistWordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: Colors.grey[900],
-      ),
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.grey[900],
+          gradient: LinearGradient(colors: [Colors.grey[700], Colors.black])),
       child: Column(
         children: [
           ListTile(
             contentPadding: EdgeInsets.fromLTRB(15, 10, 20, 0),
-            title: Text(
-              'Artist-specific',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text(
+                'Artist-specific',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
               ),
             ),
             subtitle: Text(
@@ -24,10 +28,7 @@ class ArtistWordList extends StatelessWidget {
               style: TextStyle(fontSize: 15),
             ),
           ),
-          Divider(
-            color: Colors.white54,
-            thickness: 1,
-          ),
+          Divider(color: Colors.white54),
           _ArtistWordTile(
             artistName: 'Silent Planet',
             wordcount: 278,
@@ -46,10 +47,7 @@ class ArtistWordList extends StatelessWidget {
             imgUrl:
                 'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
           ),
-          Divider(
-            color: Colors.white54,
-            thickness: 1,
-          ),
+          Divider(color: Colors.white54),
           Container(
             padding: EdgeInsets.fromLTRB(20, 10, 0, 20),
             width: double.infinity,
@@ -80,7 +78,11 @@ class _ArtistWordTile extends StatelessWidget {
       ),
       title: Text(
         artistName,
-        style: TextStyle(fontSize: 22),
+        style: TextStyle(
+          fontSize: 22,
+          letterSpacing: 1,
+          fontWeight: FontWeight.w600,
+        ),
       ),
       trailing: Text(
         wordcount.toString() + ' entries',

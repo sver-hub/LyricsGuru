@@ -12,11 +12,15 @@ class ChosenWords extends StatelessWidget {
         children: [
           ListTile(
             contentPadding: EdgeInsets.fromLTRB(15, 10, 20, 0),
-            title: Text(
-              'Chosen by You',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text(
+                'Chosen by You',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
               ),
             ),
             subtitle: Text(
@@ -24,10 +28,7 @@ class ChosenWords extends StatelessWidget {
               style: TextStyle(fontSize: 15),
             ),
           ),
-          Divider(
-            color: Colors.white54,
-            thickness: 1,
-          ),
+          Divider(color: Colors.white54),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             width: double.infinity,
@@ -53,10 +54,7 @@ class ChosenWords extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
-            color: Colors.white54,
-            thickness: 1,
-          ),
+          Divider(color: Colors.white54),
           Container(
             padding: EdgeInsets.fromLTRB(20, 10, 0, 20),
             width: double.infinity,
