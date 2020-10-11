@@ -8,7 +8,8 @@ class NavScreen extends StatefulWidget {
 }
 
 class _NavScreenState extends State<NavScreen> {
-  GlobalKey<NavigatorState> navKey = GlobalKey();
+  List<GlobalKey<NavigatorState>> navKeys =
+      List.generate(4, (index) => GlobalKey());
   List<Widget> screens;
 
   int _selectedIndex = 0;
@@ -29,9 +30,11 @@ class _NavScreenState extends State<NavScreen> {
         ),
       ),
       LibraryScreen(
-        navKey: navKey,
+        navKey: navKeys[2],
       ),
-      LearnScreen(),
+      LearnScreen(
+        navKey: navKeys[3],
+      ),
     ];
   }
 
@@ -39,7 +42,7 @@ class _NavScreenState extends State<NavScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        navKey.currentState.maybePop();
+        navKeys[_selectedIndex].currentState.maybePop();
         return false;
       },
       child: Scaffold(
@@ -63,7 +66,9 @@ class _NavScreenState extends State<NavScreen> {
                     duration: Duration(milliseconds: 300),
                     curve: Curves.fastOutSlowIn);
               } else {
-                navKey.currentState.popUntil((route) => route.isFirst);
+                navKeys[_selectedIndex]
+                    .currentState
+                    .popUntil((route) => route.isFirst);
               }
             }),
             items: [

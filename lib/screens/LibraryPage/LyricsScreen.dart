@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/LibraryPage/widgets/AnalyseButton.dart';
-import 'package:flutter_app/track.dart';
+import 'package:flutter_app/models/track.dart';
 
 class LyricsScreen extends StatefulWidget {
   final Track track;
@@ -77,7 +77,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: SizedBox(
               width: double.infinity,
               child: Text(

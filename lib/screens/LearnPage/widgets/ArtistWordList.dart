@@ -5,9 +5,13 @@ class ArtistWordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.grey[900],
-          gradient: LinearGradient(colors: [Colors.grey[700], Colors.black])),
+        //borderRadius: BorderRadius.circular(20),
+        color: Colors.grey[900],
+        // gradient: LinearGradient(
+        //   colors: [Colors.grey[800], Colors.grey[900]],
+        //   stops: [0, 1],
+        // ),
+      ),
       child: Column(
         children: [
           ListTile(

@@ -5,7 +5,7 @@ class ChosenWords extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        // borderRadius: BorderRadius.circular(20),
         color: Colors.grey[900],
       ),
       child: Column(

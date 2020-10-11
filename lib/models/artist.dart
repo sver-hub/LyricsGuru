@@ -1,59 +1,12 @@
-import 'dart:ui';
+import 'package:flutter_app/models/album.dart';
+import 'package:flutter_app/models/track.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_app/album.dart';
-import 'package:flutter_app/track.dart';
-import 'package:flutter_app/screens/LibraryPage/AlbumsScreen.dart';
-
-class Artist extends StatelessWidget {
+class Artist {
   final name;
   final thumbnailUrl;
   final List<Album> albums;
 
   Artist({this.name, this.thumbnailUrl, this.albums});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AlbumsScreen(
-          artist: this,
-        ),
-      )),
-      child: SizedBox.expand(
-        child: Container(
-          child: Column(
-            children: [
-              Expanded(
-                child: Hero(
-                  tag: this.thumbnailUrl,
-                  child: ClipRRect(
-                    child: Image(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(this.thumbnailUrl),
-                    ),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                this.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.2,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 final Artist weeknd = Artist(

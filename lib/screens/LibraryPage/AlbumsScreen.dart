@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/artist.dart';
+import 'package:flutter_app/models/album.dart';
+import 'package:flutter_app/models/artist.dart';
+import 'package:flutter_app/screens/LibraryPage/TracksScreen.dart';
 
 class AlbumsScreen extends StatelessWidget {
   final Artist artist;
@@ -61,13 +63,80 @@ class AlbumsScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
             sliver: SliverGrid.count(
               crossAxisCount: 2,
-              children: this.artist.albums,
+              children: artist.albums
+                  .map((a) => _AlbumPreview(
+                        album: a,
+                      ))
+                  .toList(),
               crossAxisSpacing: 20.0,
               mainAxisSpacing: 20.0,
               childAspectRatio: 0.77,
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _AlbumPreview extends StatelessWidget {
+  final Album album;
+
+  const _AlbumPreview({Key key, this.album}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => TracksScreen(
+          album: this.album,
+        ),
+      )),
+      child: SizedBox.expand(
+        child: Container(
+          child: Column(
+            children: [
+              Expanded(
+                child: Hero(
+                  tag: this.album.coverUrl,
+                  child: ClipRRect(
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(this.album.coverUrl),
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Text(
+                  this.album.title,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Text(
+                  this.album.artistName,
+                  style: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 15,
+                    letterSpacing: 0.8,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

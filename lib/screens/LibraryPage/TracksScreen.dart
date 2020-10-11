@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/album.dart';
+import 'package:flutter_app/models/album.dart';
+import 'package:flutter_app/models/track.dart';
+import 'package:flutter_app/screens/LibraryPage/LyricsScreen.dart';
 import 'package:flutter_app/screens/LibraryPage/widgets/AnalyseButton.dart';
 
 class TracksScreen extends StatelessWidget {
@@ -83,7 +85,13 @@ class TracksScreen extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
             sliver: SliverList(
-              delegate: SliverChildListDelegate(this.album.tracks),
+              delegate: SliverChildListDelegate(this
+                  .album
+                  .tracks
+                  .map((t) => _TrackTile(
+                        track: t,
+                      ))
+                  .toList()),
             ),
           ),
           SliverToBoxAdapter(
@@ -97,6 +105,38 @@ class TracksScreen extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _TrackTile extends StatelessWidget {
+  final Track track;
+
+  const _TrackTile({Key key, this.track}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => LyricsScreen(
+            track: this.track,
+          ),
+        ),
+      ),
+      title: Text(
+        this.track.title,
+        style: TextStyle(
+          fontSize: 24,
+        ),
+        overflow: TextOverflow.ellipsis,
+      ),
+      subtitle: Text(
+        this.track.artistName + ' - ' + this.track.albumTitle,
+        style: TextStyle(
+          color: Colors.white54,
+        ),
       ),
     );
   }
