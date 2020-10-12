@@ -18,7 +18,7 @@ class DefinitionScreen extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(
-                    Icons.arrow_back,
+                    Icons.arrow_back_ios,
                     color: Colors.white,
                   ),
                   onPressed: () => Navigator.of(context).pop(),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/LearnPage/WordSelectionScreen.dart';
+import 'package:flutter_app/screens/LearnPage/widgets/Header.dart';
 
 class ArtistSpecificScreen extends StatefulWidget {
   @override
@@ -17,44 +19,15 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
         ),
       ),
       child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: tiles.length,
-        itemBuilder: (context, index) => index > 0
-            ? tiles[index - 1]
-            : Container(
-                child: Column(
-                  children: [
-                    ListTile(
-                      contentPadding: EdgeInsets.fromLTRB(15, 10, 20, 0),
-                      leading: IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                      title: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          'Artist-specific',
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Divider(
-                      color: Colors.white54,
-                      height: 3,
-                    ),
-                  ],
-                ),
-              ),
-      ),
+          shrinkWrap: true,
+          itemCount: tiles.length,
+          itemBuilder: (context, index) => index > 0
+              ? tiles[index - 1]
+              : Header(
+                  title: 'Artist-specific',
+                  subtitle:
+                      'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
+                )),
     );
   }
 }
@@ -70,6 +43,14 @@ class _Tile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => WordSelectionScreen(
+          words: ['word1', 'word2'],
+          title: this.artistName,
+          subtitle:
+              'Learn words to better understand meaning of this artist\'s songs',
+        ),
+      )),
       contentPadding: EdgeInsets.all(10),
       leading: CircleAvatar(
         radius: 30,
