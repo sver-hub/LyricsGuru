@@ -37,7 +37,7 @@ class AlbumsScreen extends StatelessWidget {
                           children: [
                             IconButton(
                               icon: Icon(
-                                Icons.arrow_back,
+                                Icons.arrow_back_ios,
                               ),
                               iconSize: 30.0,
                               onPressed: () => Navigator.of(context).pop(),
