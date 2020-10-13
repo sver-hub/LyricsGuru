@@ -25,6 +25,8 @@ class _LibraryScreenState extends State<LibraryScreen>
             switch (settings.name) {
               case '/':
                 return ArtistsScreen();
+              default:
+                return null;
             }
           },
         );

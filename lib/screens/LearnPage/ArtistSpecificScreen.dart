@@ -19,15 +19,16 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
         ),
       ),
       child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: tiles.length,
-          itemBuilder: (context, index) => index > 0
-              ? tiles[index - 1]
-              : Header(
-                  title: 'Artist-specific',
-                  subtitle:
-                      'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
-                )),
+        shrinkWrap: true,
+        itemCount: tiles.length + 1,
+        itemBuilder: (context, index) => index > 0
+            ? tiles[index - 1]
+            : Header(
+                title: 'Artist-specific',
+                subtitle:
+                    'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
+              ),
+      ),
     );
   }
 }

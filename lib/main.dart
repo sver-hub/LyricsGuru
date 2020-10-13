@@ -35,6 +35,38 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
             unselectedItemColor: Colors.white54,
             selectedItemColor: Colors.white,
             type: BottomNavigationBarType.fixed,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+              textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              )),
+              backgroundColor: MaterialStateProperty.all(Colors.deepPurple),
+              minimumSize: MaterialStateProperty.all(Size(150, 50)),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Colors.deepPurple,
+                  width: 10,
+                ),
+                borderRadius: BorderRadius.circular(40),
+              )),
+            ),
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: ButtonStyle(
+              textStyle: MaterialStateProperty.all(TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              )),
+              side: MaterialStateProperty.all(
+                  BorderSide(color: Colors.deepPurple, width: 2)),
+              minimumSize: MaterialStateProperty.all(Size(150, 50)),
+              overlayColor: MaterialStateProperty.all(Colors.deepPurple),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(40),
+              )),
+            ),
           )),
       home: NavScreen(), //HomePage(title: 'Flutter Demo Home Page'),
     );

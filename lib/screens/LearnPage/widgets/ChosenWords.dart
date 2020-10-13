@@ -42,11 +42,10 @@ class ChosenWords extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: double.infinity,
-              child: Wrap(
-                spacing: 15,
-                runSpacing: 15,
-                children: words.map((e) => _WordWrapper(e)).toList(),
-              ),
+              child: Wrap(spacing: 15, runSpacing: 15, children: [
+                ...words.map((e) => _WordWrapper(e)).toList(),
+                _WordWrapper('...And More')
+              ]),
             ),
             Divider(color: Colors.white54),
             Container(
@@ -79,7 +78,6 @@ List words = [
   'Gore',
   'Brood',
   'Slaughter',
-  '...And More'
 ];
 
 class _WordWrapper extends StatelessWidget {

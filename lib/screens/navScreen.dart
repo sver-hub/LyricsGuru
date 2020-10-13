@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/learnScreen.dart';
+import 'package:flutter_app/screens/LearnPage/myWordsScreen.dart';
 import 'package:flutter_app/screens/LibraryPage/libararyScreen.dart';
 
 class NavScreen extends StatefulWidget {
@@ -32,7 +32,7 @@ class _NavScreenState extends State<NavScreen> {
       LibraryScreen(
         navKey: navKeys[2],
       ),
-      LearnScreen(
+      MyWordsScreen(
         navKey: navKeys[3],
       ),
     ];

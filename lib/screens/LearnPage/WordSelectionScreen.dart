@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/LearnPage/DefinitionScreen.dart';
+import 'package:flutter_app/screens/LearnPage/LearnScreen.dart';
+import 'package:flutter_app/screens/LearnPage/QuizScreen.dart';
 import 'package:flutter_app/screens/LearnPage/widgets/Header.dart';
 
 class WordSelectionScreen extends StatefulWidget {
@@ -26,24 +28,61 @@ class _WordSelectionScreenState extends State<WordSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: FractionalOffset(-0.5, -0.5),
-          end: FractionalOffset.bottomRight,
-          colors: [Colors.blue[900], Colors.black],
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: FractionalOffset(-0.5, -0.5),
+            end: FractionalOffset.bottomRight,
+            colors: [Colors.blue[900], Colors.black],
+          ),
         ),
-      ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: tiles.length + 1,
-        itemBuilder: (context, index) => index > 0
-            ? tiles[index - 1]
-            : Header(
-                title: widget.title,
-                subtitle: widget.subtitle,
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Header(
+                  title: widget.title,
+                  subtitle: widget.subtitle,
+                ),
               ),
-      ),
-    );
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => LearnScreen(),
+                        )),
+                        child: Text(
+                          'Learn',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => QuizScreen(),
+                        )),
+                        child: Text(
+                          'Quiz',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => tiles[index],
+                  childCount: tiles.length,
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
 
