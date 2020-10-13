@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/models/album.dart';
 import 'package:flutter_app/models/artist.dart';
 import 'package:flutter_app/screens/LibraryPage/TracksScreen.dart';
+import 'package:flutter_app/screens/LibraryPage/widgets/AnalyseButton.dart';
 
 class AlbumsScreen extends StatelessWidget {
   final Artist artist;
@@ -72,7 +73,18 @@ class AlbumsScreen extends StatelessWidget {
               mainAxisSpacing: 20.0,
               childAspectRatio: 0.77,
             ),
-          )
+          ),
+          SliverToBoxAdapter(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
+                  child: AnalyseButton(),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

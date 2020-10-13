@@ -12,9 +12,11 @@ class MyWordsScreen extends StatefulWidget {
   _MyWordsScreenState createState() => _MyWordsScreenState();
 }
 
-class _MyWordsScreenState extends State<MyWordsScreen> {
+class _MyWordsScreenState extends State<MyWordsScreen>
+    with AutomaticKeepAliveClientMixin<MyWordsScreen> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Navigator(
       key: widget.navKey,
       observers: [HeroController()],
@@ -40,10 +42,15 @@ class _MyWordsScreenState extends State<MyWordsScreen> {
                     ),
                   ],
                 );
+              default:
+                return null;
             }
           },
         );
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

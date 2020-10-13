@@ -96,14 +96,15 @@ class TracksScreen extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 30),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 50),
                   child: AnalyseButton(),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

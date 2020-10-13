@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
           brightness: Brightness.dark,
           accentColor: Colors.white54,
           canvasColor: Colors.black,
+          primaryColor: Colors.deepPurple,
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: Colors.grey[900],
             unselectedItemColor: Colors.white54,

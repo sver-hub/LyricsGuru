@@ -92,10 +92,10 @@ class _LyricsScreenState extends State<LyricsScreen> {
             height: 30,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 20, 30),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 50),
                 child: AnalyseButton(),
               ),
             ],

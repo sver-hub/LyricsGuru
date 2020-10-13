@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/HomePage/homeScreen.dart';
 import 'package:flutter_app/screens/LearnPage/myWordsScreen.dart';
 import 'package:flutter_app/screens/LibraryPage/libararyScreen.dart';
 
@@ -19,10 +20,8 @@ class _NavScreenState extends State<NavScreen> {
   void initState() {
     super.initState();
     screens = [
-      Scaffold(
-        body: Center(
-          child: Text('Home'),
-        ),
+      HomeScreen(
+        navKey: navKeys[0],
       ),
       Scaffold(
         body: Center(
