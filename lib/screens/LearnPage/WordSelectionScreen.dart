@@ -37,6 +37,7 @@ class _WordSelectionScreenState extends State<WordSelectionScreen> {
         ),
         child: SafeArea(
           child: CustomScrollView(
+            physics: BouncingScrollPhysics(),
             slivers: [
               SliverToBoxAdapter(
                 child: Header(

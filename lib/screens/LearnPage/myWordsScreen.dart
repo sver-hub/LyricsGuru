@@ -27,6 +27,7 @@ class _MyWordsScreenState extends State<MyWordsScreen>
             switch (settings.name) {
               case '/':
                 return CustomScrollView(
+                  physics: BouncingScrollPhysics(),
                   slivers: [
                     SliverList(
                       delegate: SliverChildListDelegate(

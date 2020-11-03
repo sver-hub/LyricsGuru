@@ -16,22 +16,21 @@ class ArtistsScreen extends StatelessWidget {
       ),
       padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
       child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate([
-              SizedBox(
-                height: 150,
-                child: Center(
-                  child: Text(
-                    'Your Music',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                    ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 150,
+              child: Center(
+                child: Text(
+                  'Your Music',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
                   ),
                 ),
               ),
-            ]),
+            ),
           ),
           SliverGrid.count(
             crossAxisCount: 2,

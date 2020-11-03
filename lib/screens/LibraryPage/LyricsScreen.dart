@@ -17,6 +17,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
     return Container(
       color: Colors.black,
       child: ListView(
+        physics: BouncingScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 20, 40),

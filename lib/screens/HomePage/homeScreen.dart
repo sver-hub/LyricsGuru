@@ -25,36 +25,47 @@ class _HomeScreenState extends State<HomeScreen>
           builder: (BuildContext context) {
             switch (settings.name) {
               case '/':
-                return CustomScrollView(
-                  slivers: [
-                    SliverAppBar(
-                      centerTitle: true,
-                      expandedHeight: 200,
-                      flexibleSpace: Container(
-                        color: Theme.of(context).primaryColor,
-                        child: FlexibleSpaceBar(
-                          title: Text('Welcome Back'),
-                          background: Image(
-                            fit: BoxFit.cover,
-                            image:
-                                AssetImage('assets/images/homeappbarimage.jpg'),
+                return Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: FractionalOffset(-0.5, -0.5),
+                      end: FractionalOffset.bottomRight,
+                      colors: [Colors.orange[900], Colors.black],
+                    ),
+                  ),
+                  padding: EdgeInsets.only(top: 30),
+                  child: CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 150,
+                          child: Center(
+                            child: Text(
+                              'Welcome Back, Sver',
+                              style: TextStyle(
+                                  fontSize: 30, fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          WordOfTheDay(
-                            word: 'Agonizing',
-                            definition:
-                                'causing great physical or mental pain.',
-                          ),
-                          UserStats(),
-                        ],
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            WordOfTheDay(
+                              word: 'Agonizing',
+                              definition:
+                                  'causing great physical or mental pain.',
+                            ),
+                            UserStats(),
+                            SizedBox(
+                              height: 5000,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               default:
                 return null;

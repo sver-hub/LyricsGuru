@@ -18,16 +18,22 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
           colors: [Colors.orange[900], Colors.black],
         ),
       ),
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: tiles.length + 1,
-        itemBuilder: (context, index) => index > 0
-            ? tiles[index - 1]
-            : Header(
-                title: 'Artist-specific',
-                subtitle:
-                    'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
-              ),
+      child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(
+            child: Header(
+              title: 'Artist-specific',
+              subtitle:
+                  'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                (context, index) => tiles[index],
+                childCount: tiles.length),
+          ),
+        ],
       ),
     );
   }

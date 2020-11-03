@@ -14,6 +14,7 @@ class AlbumsScreen extends StatelessWidget {
     return Container(
       color: Colors.black,
       child: CustomScrollView(
+        physics: BouncingScrollPhysics(),
         slivers: [
           SliverList(
             delegate: SliverChildListDelegate(
