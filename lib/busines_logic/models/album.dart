@@ -1,4 +1,4 @@
-import 'package:flutter_app/models/track.dart';
+import 'track.dart';
 
 class Album {
   final title;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LibraryPage/widgets/AnalyseButton.dart';
-import 'package:flutter_app/models/track.dart';
+import 'package:flutter_app/busines_logic/models/track.dart';
+
+import 'widgets/analyse_button.dart';
 
 class LyricsScreen extends StatefulWidget {
   final Track track;

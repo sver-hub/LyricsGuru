@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/navScreen.dart';
 import 'package:flutter/services.dart';
+
+import 'ui/views/nav_screen.dart';
 
 void main() => runApp(MyApp());
 

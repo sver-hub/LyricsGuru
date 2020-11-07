@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/widgets/ArtistWordList.dart';
-import 'package:flutter_app/screens/LearnPage/widgets/ChosenWords.dart';
-import 'package:flutter_app/screens/LearnPage/widgets/WordCarousel.dart';
+import 'widgets/artist_word_list.dart';
+import 'widgets/chosen_words.dart';
+import 'widgets/word_carousel.dart';
 
 class MyWordsScreen extends StatefulWidget {
   final navKey;

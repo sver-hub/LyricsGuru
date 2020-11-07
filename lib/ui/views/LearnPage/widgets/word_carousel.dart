@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/DefinitionScreen.dart';
+import '../definition_screen.dart';
 
 class WordCarousel extends StatelessWidget {
   @override

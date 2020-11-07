@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/HomePage/homeScreen.dart';
-import 'package:flutter_app/screens/LearnPage/myWordsScreen.dart';
-import 'package:flutter_app/screens/LibraryPage/libararyScreen.dart';
+
+import 'HomePage/home_screen.dart';
+import 'LearnPage/my_words_screen.dart';
+import 'LibraryPage/libarary_screen.dart';
 
 class NavScreen extends StatefulWidget {
   @override

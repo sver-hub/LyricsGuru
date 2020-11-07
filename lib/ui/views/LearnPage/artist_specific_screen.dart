@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/WordSelectionScreen.dart';
-import 'package:flutter_app/screens/LearnPage/widgets/Header.dart';
+import 'word_selection_screen.dart';
+import 'widgets/header.dart';
 
 class ArtistSpecificScreen extends StatefulWidget {
   @override

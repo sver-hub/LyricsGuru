@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/HomePage/widgets/UserStats.dart';
-import 'package:flutter_app/screens/HomePage/widgets/WordOfTheDay.dart';
+
+import 'widgets/user_stats.dart';
+import 'widgets/word_of_the_day.dart';
 
 class HomeScreen extends StatefulWidget {
   final GlobalKey<NavigatorState> navKey;

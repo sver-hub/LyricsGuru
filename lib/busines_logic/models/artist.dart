@@ -1,5 +1,5 @@
-import 'package:flutter_app/models/album.dart';
-import 'package:flutter_app/models/track.dart';
+import 'album.dart';
+import 'track.dart';
 
 class Artist {
   final name;

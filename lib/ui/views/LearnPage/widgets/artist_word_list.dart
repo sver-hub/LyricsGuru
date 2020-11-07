@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/ArtistSpecificScreen.dart';
+import '../artist_specific_screen.dart';
 
 class ArtistWordList extends StatelessWidget {
   @override

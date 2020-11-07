@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LibraryPage/ArtistsScreen.dart';
+import 'artists_screen.dart';
 
 class LibraryScreen extends StatefulWidget {
   final GlobalKey<NavigatorState> navKey;

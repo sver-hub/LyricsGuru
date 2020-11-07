@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/DefinitionScreen.dart';
-import 'package:flutter_app/screens/LearnPage/LearnScreen.dart';
-import 'package:flutter_app/screens/LearnPage/QuizScreen.dart';
-import 'package:flutter_app/screens/LearnPage/widgets/Header.dart';
+
+import 'definition_screen.dart';
+import 'quiz_screen.dart';
+import 'learn_screen.dart';
+import 'widgets/header.dart';
 
 class WordSelectionScreen extends StatefulWidget {
   final List words;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/LearnPage/WordSelectionScreen.dart';
+import '../word_selection_screen.dart';
 
 class ChosenWords extends StatelessWidget {
   @override

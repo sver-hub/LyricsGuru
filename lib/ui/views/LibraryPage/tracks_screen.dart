@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/album.dart';
-import 'package:flutter_app/models/track.dart';
-import 'package:flutter_app/screens/LibraryPage/LyricsScreen.dart';
-import 'package:flutter_app/screens/LibraryPage/widgets/AnalyseButton.dart';
+import 'package:flutter_app/busines_logic/models/album.dart';
+import 'package:flutter_app/busines_logic/models/track.dart';
+
+import 'lyrics_screen.dart';
+import 'widgets/analyse_button.dart';
 
 class TracksScreen extends StatelessWidget {
   final Album album;

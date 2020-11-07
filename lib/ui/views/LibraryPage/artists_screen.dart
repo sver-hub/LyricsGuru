@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/artist.dart';
-import 'package:flutter_app/screens/LibraryPage/AlbumsScreen.dart';
+import 'package:flutter_app/busines_logic/models/artist.dart';
+
+import 'albums_screen.dart';
 
 class ArtistsScreen extends StatelessWidget {
   @override
