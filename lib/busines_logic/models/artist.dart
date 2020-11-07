@@ -7,6 +7,11 @@ class Artist {
   final List<Album> albums;
 
   Artist({this.name, this.thumbnailUrl, this.albums});
+
+  //TODO: implement
+  // Artist.fromJson(String json) {
+
+  // }
 }
 
 final Artist weeknd = Artist(
@@ -76,8 +81,6 @@ final Artist spiritbox = Artist(
                 title: e,
                 artistName: 'Spiritbox',
                 albumTitle: 'Singles Collection',
-                lyrics:
-                    'Veins die and I fantasize to find hurt another way\nMy baseline, I take time in the middle\nThe bile fills the leech\nI hear them talking in their sleep\nA vessel to the ether sea\nThe varicose encasing me\nWhy can\'t they see the lights are\nSynchronizing into the shadows underneath?\nWhy can\'t they see the lights are synchronizing?\nI feel them change velocities\nDraw slow when you take from me\nI need time\nIt\'s just I can\'t suffer honestly\nThe taste of chemicals keep me alive\nI feel the pain through a surrogate\nThe brittle bones of a middle child\nThey call a state of emergency to get me back to my baseline\nAnd it hurts a little\nAnd I lie a little in my refuge\nVeins die and I fantasize to find hurt another way\nMy baseline, I take time in the middle\nThere must be…',
               ))
           .toList(),
     ),

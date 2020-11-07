@@ -15,7 +15,7 @@ class _NavScreenState extends State<NavScreen> {
   List<Widget> screens;
 
   int _selectedIndex = 0;
-  PageController _pageController = PageController();
+  //PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -46,11 +46,11 @@ class _NavScreenState extends State<NavScreen> {
         return false;
       },
       child: Scaffold(
-        body: PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: screens,
-        ),
+        // body: PageView(
+        //   physics: NeverScrollableScrollPhysics(),
+        //   controller: _pageController,
+        //   children: screens,
+        body: show(_selectedIndex), //screens[_selectedIndex],
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
               canvasColor:
@@ -62,9 +62,9 @@ class _NavScreenState extends State<NavScreen> {
             onTap: (int idx) => setState(() {
               if (_selectedIndex != idx) {
                 _selectedIndex = idx;
-                _pageController.animateToPage(_selectedIndex,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.fastOutSlowIn);
+                // _pageController.animateToPage(_selectedIndex,
+                //     duration: Duration(milliseconds: 300),
+                //     curve: Curves.fastOutSlowIn);
               } else {
                 navKeys[_selectedIndex]
                     .currentState
@@ -93,5 +93,9 @@ class _NavScreenState extends State<NavScreen> {
         ),
       ),
     );
+  }
+
+  Widget show(index) {
+    return screens[index];
   }
 }

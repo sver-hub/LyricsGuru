@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/busines_logic/models/track.dart';
+import 'package:lyrics_guru/busines_logic/models/track.dart';
 
 import 'widgets/analyse_button.dart';
 

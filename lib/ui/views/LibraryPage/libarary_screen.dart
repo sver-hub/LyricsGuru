@@ -22,12 +22,7 @@ class _LibraryScreenState extends State<LibraryScreen>
         return MaterialPageRoute(
           settings: settings,
           builder: (BuildContext context) {
-            switch (settings.name) {
-              case '/':
-                return ArtistsScreen();
-              default:
-                return null;
-            }
+            return ArtistsScreen();
           },
         );
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/busines_logic/models/album.dart';
-import 'package:flutter_app/busines_logic/models/track.dart';
+import 'package:lyrics_guru/busines_logic/models/album.dart';
+import 'package:lyrics_guru/busines_logic/models/track.dart';
 
 import 'lyrics_screen.dart';
 import 'widgets/analyse_button.dart';
