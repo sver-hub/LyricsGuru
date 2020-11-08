@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class LearnScreen extends StatefulWidget {
+class WordLearnScreen extends StatefulWidget {
   @override
-  _LearnScreenState createState() => _LearnScreenState();
+  _WordLearnScreenState createState() => _WordLearnScreenState();
 }
 
-class _LearnScreenState extends State<LearnScreen> {
+class _WordLearnScreenState extends State<WordLearnScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(

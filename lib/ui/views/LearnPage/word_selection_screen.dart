@@ -55,7 +55,7 @@ class _WordSelectionScreenState extends State<WordSelectionScreen> {
                       OutlinedButton(
                         onPressed: () =>
                             Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => LearnScreen(),
+                          builder: (context) => WordLearnScreen(),
                         )),
                         child: Text(
                           'Learn',

@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
               )),
             ),
           )),
-      home: NavScreen(), //HomePage(title: 'Flutter Demo Home Page'),
+      home: NavScreen(),
     );
   }
 }
