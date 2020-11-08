@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
+import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:provider/provider.dart';
 
 import 'lyrics_screen.dart';
 import 'widgets/analyse_button.dart';
 
-class TracksScreen extends StatelessWidget {
+class TracksScreen extends StatefulWidget {
   final Album album;
 
   const TracksScreen({Key key, this.album}) : super(key: key);
+
+  @override
+  _TracksScreenState createState() => _TracksScreenState();
+}
+
+class _TracksScreenState extends State<TracksScreen> {
+  TracksScreenViewModel model = serviceLocator<TracksScreenViewModel>();
+
+  @override
+  void initState() {
+    model.loadData(widget.album);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +37,7 @@ class TracksScreen extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 Hero(
-                  tag: this.album.coverUrl,
+                  tag: this.widget.album.coverUrl,
                   child: Stack(
                     children: [
                       Container(
@@ -28,7 +45,7 @@ class TracksScreen extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
-                            image: NetworkImage(this.album.coverUrl),
+                            image: NetworkImage(this.widget.album.coverUrl),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -66,7 +83,7 @@ class TracksScreen extends StatelessWidget {
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 80,
                               child: Text(
-                                this.album.title,
+                                this.widget.album.title,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: TextStyle(
@@ -86,15 +103,7 @@ class TracksScreen extends StatelessWidget {
           ),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 20),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(this
-                  .album
-                  .tracks
-                  .map((t) => _TrackTile(
-                        track: t,
-                      ))
-                  .toList()),
-            ),
+            sliver: buildList(model),
           ),
           SliverToBoxAdapter(
             child: Row(
@@ -108,6 +117,18 @@ class TracksScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildList(TracksScreenViewModel viewModel) {
+    return ChangeNotifierProvider<TracksScreenViewModel>(
+      create: (context) => viewModel,
+      child: Consumer<TracksScreenViewModel>(
+        builder: (context, model, child) => SliverList(
+          delegate: SliverChildListDelegate(
+              model.tracks.map((t) => _TrackTile(track: t)).toList()),
+        ),
       ),
     );
   }
@@ -136,7 +157,7 @@ class _TrackTile extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        this.track.artistName + ' - ' + this.track.albumTitle,
+        this.track.album.artist.name + ' - ' + this.track.album.title,
         style: TextStyle(
           color: Colors.white54,
         ),

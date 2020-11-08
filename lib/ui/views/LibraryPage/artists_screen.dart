@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_guru/busines_logic/view_models/artists_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/models/artist.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:provider/provider.dart';
+
+import 'albums_screen.dart';
 
 class ArtistsScreen extends StatefulWidget {
   @override
@@ -9,7 +12,7 @@ class ArtistsScreen extends StatefulWidget {
 }
 
 class _ArtistsScreenState extends State<ArtistsScreen> {
-  ArtistsSreenViewModel model = serviceLocator<ArtistsSreenViewModel>();
+  ArtistsScreenViewModel model = serviceLocator<ArtistsScreenViewModel>();
 
   @override
   void initState() {
@@ -52,16 +55,65 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
     );
   }
 
-  Widget buildGrid(ArtistsSreenViewModel viewModel) {
-    return ChangeNotifierProvider<ArtistsSreenViewModel>(
+  Widget buildGrid(ArtistsScreenViewModel viewModel) {
+    return ChangeNotifierProvider<ArtistsScreenViewModel>(
       create: (context) => viewModel,
-      child: Consumer<ArtistsSreenViewModel>(
+      child: Consumer<ArtistsScreenViewModel>(
         builder: (context, model, child) => SliverGrid.count(
           crossAxisCount: 2,
-          children: model.artists,
+          children: model.artists.map((e) => _ArtistPreview(e)).toList(),
           crossAxisSpacing: 30.0,
           mainAxisSpacing: 50.0,
           childAspectRatio: 0.83,
+        ),
+      ),
+    );
+  }
+}
+
+class _ArtistPreview extends StatelessWidget {
+  final Artist artist;
+
+  const _ArtistPreview(this.artist, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => AlbumsScreen(
+          artist: this.artist,
+        ),
+      )),
+      child: SizedBox.expand(
+        child: Container(
+          child: Column(
+            children: [
+              Expanded(
+                child: Hero(
+                  tag: this.artist.thumbnailUrl,
+                  child: ClipRRect(
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(this.artist.thumbnailUrl),
+                    ),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                this.artist.name,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.2,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );

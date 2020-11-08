@@ -1,10 +1,9 @@
-import 'track.dart';
+import 'artist.dart';
 
 class Album {
   final title;
   final coverUrl;
-  final artistName;
-  final List<Track> tracks;
+  final Artist artist;
 
-  Album({this.title, this.coverUrl, this.tracks, this.artistName});
+  Album({this.title, this.coverUrl, this.artist});
 }

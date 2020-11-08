@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen_viewmodel.dart';
+import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:provider/provider.dart';
 
 import 'tracks_screen.dart';
 import 'widgets/analyse_button.dart';
 
-class AlbumsScreen extends StatelessWidget {
+class AlbumsScreen extends StatefulWidget {
   final Artist artist;
 
   const AlbumsScreen({Key key, this.artist}) : super(key: key);
+
+  @override
+  _AlbumsScreenState createState() => _AlbumsScreenState();
+}
+
+class _AlbumsScreenState extends State<AlbumsScreen> {
+  AlbumsScreenViewModel model = serviceLocator<AlbumsScreenViewModel>();
+
+  @override
+  void initState() {
+    model.loadData(widget.artist);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +37,15 @@ class AlbumsScreen extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 Hero(
-                  tag: this.artist.thumbnailUrl,
+                  tag: this.widget.artist.thumbnailUrl,
                   child: Stack(
                     children: [
                       Container(
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
-                            image: NetworkImage(this.artist.thumbnailUrl),
+                            image:
+                                NetworkImage(this.widget.artist.thumbnailUrl),
                             fit: BoxFit.fitWidth,
                           ),
                         ),
@@ -47,7 +64,7 @@ class AlbumsScreen extends StatelessWidget {
                             ),
                             SizedBox(width: 20.0),
                             Text(
-                              this.artist.name,
+                              this.widget.artist.name,
                               style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w600,
@@ -63,19 +80,8 @@ class AlbumsScreen extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
-            sliver: SliverGrid.count(
-              crossAxisCount: 2,
-              children: artist.albums
-                  .map((a) => _AlbumPreview(
-                        album: a,
-                      ))
-                  .toList(),
-              crossAxisSpacing: 20.0,
-              mainAxisSpacing: 20.0,
-              childAspectRatio: 0.77,
-            ),
-          ),
+              padding: const EdgeInsets.fromLTRB(10, 30, 10, 20),
+              sliver: buildGrid(model)),
           SliverToBoxAdapter(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,6 +94,25 @@ class AlbumsScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildGrid(AlbumsScreenViewModel viewModel) {
+    return ChangeNotifierProvider<AlbumsScreenViewModel>(
+      create: (context) => viewModel,
+      child: Consumer<AlbumsScreenViewModel>(
+        builder: (context, model, child) => SliverGrid.count(
+          crossAxisCount: 2,
+          children: model.albums
+              .map((a) => _AlbumPreview(
+                    album: a,
+                  ))
+              .toList(),
+          crossAxisSpacing: 20.0,
+          mainAxisSpacing: 20.0,
+          childAspectRatio: 0.77,
+        ),
       ),
     );
   }
@@ -139,7 +164,7 @@ class _AlbumPreview extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: Text(
-                  this.album.artistName,
+                  this.album.artist.name,
                   style: TextStyle(
                     color: Colors.white54,
                     fontSize: 15,

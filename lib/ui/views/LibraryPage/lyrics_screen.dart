@@ -34,7 +34,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 80,
                   child: Text(
-                    'Back to ' + widget.track.albumTitle,
+                    'Back to ' + widget.track.album.title,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 18,
@@ -63,7 +63,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
             child: SizedBox(
               width: double.infinity,
               child: Text(
-                'By ' + widget.track.artistName,
+                'By ' + widget.track.album.artist.name,
                 style: TextStyle(
                   color: Colors.white60,
                   fontSize: 17,

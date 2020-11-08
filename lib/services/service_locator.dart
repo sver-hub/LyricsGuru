@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:lyrics_guru/busines_logic/view_models/artists_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
 
 import 'learn/learn_service.dart';
 import 'learn/learn_service_fake.dart';
@@ -14,5 +16,9 @@ void setupServiceLocator() {
   serviceLocator.registerLazySingleton<LearnService>(() => LearnServiceFake());
 
   serviceLocator
-      .registerFactory<ArtistsSreenViewModel>(() => ArtistsSreenViewModel());
+      .registerFactory<ArtistsScreenViewModel>(() => ArtistsScreenViewModel());
+  serviceLocator
+      .registerFactory<AlbumsScreenViewModel>(() => AlbumsScreenViewModel());
+  serviceLocator
+      .registerFactory<TracksScreenViewModel>(() => TracksScreenViewModel());
 }
