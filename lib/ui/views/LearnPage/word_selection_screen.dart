@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'definition_screen.dart';
+import 'word_definition_screen.dart';
 import 'quiz_screen.dart';
-import 'learn_screen.dart';
+import 'word_learn_screen.dart';
 import 'widgets/header.dart';
 
 class WordSelectionScreen extends StatefulWidget {
@@ -112,27 +112,6 @@ class __TileState extends State<_Tile> {
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
       ),
       trailing: Text('42 uses in 27 songs'),
-      // trailing: GestureDetector(
-      //   onTap: () {
-      //     setState(() {
-      //       chosen = !chosen;
-      //     });
-      //   },
-      // child: Container(
-      //   width: 40,
-      //   height: 40,
-      //   decoration: BoxDecoration(
-      //     shape: BoxShape.circle,
-      //     color: chosen ? Colors.green : null,
-      //     border: Border.all(
-      //       width: 1,
-      //       color: Colors.green,
-      //       style: BorderStyle.solid,
-      //     ),
-      //   ),
-      //   child: chosen ? Icon(Icons.check) : null,
-      // ),
-      //),
     );
   }
 }

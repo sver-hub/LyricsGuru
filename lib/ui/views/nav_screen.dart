@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'HomePage/home_screen.dart';
-import 'LearnPage/my_words_screen.dart';
+import 'LearnPage/learn_screen.dart';
 import 'LibraryPage/libarary_screen.dart';
 
 class NavScreen extends StatefulWidget {

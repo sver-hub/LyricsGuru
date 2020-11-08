@@ -10,9 +10,6 @@ class ArtistsSreenViewModel extends ChangeNotifier {
   List<Widget> _artists = [];
   List<Widget> get artists => _artists;
 
-  // List<Artist> _artists;
-  // List<Artist> get artists => _artists;
-
   void loadData() async {
     List<Artist> artistData = await _libraryService.getAllArtists();
     _artists = artistData.map((a) => _ArtistPreview(a)).toList();
