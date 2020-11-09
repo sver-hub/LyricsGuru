@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lyrics_guru/busines_logic/models/artist.dart';
+import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_viewmodel.dart';
+import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:provider/provider.dart';
 import 'word_selection_screen.dart';
 import 'widgets/header.dart';
 
@@ -8,6 +12,14 @@ class ArtistSpecificScreen extends StatefulWidget {
 }
 
 class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
+  ArtistSpecificViewModel model = serviceLocator<ArtistSpecificViewModel>();
+
+  @override
+  void initState() {
+    model.loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,24 +40,38 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
                   'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                (context, index) => tiles[index],
-                childCount: tiles.length),
-          ),
+          buildList(model),
         ],
+      ),
+    );
+  }
+
+  Widget buildList(ArtistSpecificViewModel viewModel) {
+    return ChangeNotifierProvider<ArtistSpecificViewModel>(
+      create: (context) => viewModel,
+      child: Consumer<ArtistSpecificViewModel>(
+        builder: (context, model, child) => SliverList(
+          delegate: SliverChildListDelegate(model.artistData.entries
+              .map((e) => _Tile(
+                    artist: e.key,
+                    wordcount: e.value,
+                  ))
+              .toList()),
+        ),
       ),
     );
   }
 }
 
 class _Tile extends StatelessWidget {
-  final String artistName;
+  final Artist artist;
   final int wordcount;
-  final String imgUrl;
 
-  const _Tile({Key key, this.artistName, this.wordcount, this.imgUrl})
-      : super(key: key);
+  const _Tile({
+    Key key,
+    this.artist,
+    this.wordcount,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +79,7 @@ class _Tile extends StatelessWidget {
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => WordSelectionScreen(
           words: ['word1', 'word2'],
-          title: this.artistName,
+          title: artist.name,
           subtitle:
               'Learn words to better understand meaning of this artist\'s songs',
         ),
@@ -61,10 +87,10 @@ class _Tile extends StatelessWidget {
       contentPadding: EdgeInsets.all(10),
       leading: CircleAvatar(
         radius: 30,
-        backgroundImage: NetworkImage(imgUrl),
+        backgroundImage: NetworkImage(artist.thumbnailUrl),
       ),
       title: Text(
-        artistName,
+        artist.name,
         style: TextStyle(
           fontSize: 22,
           letterSpacing: 1,
@@ -78,126 +104,3 @@ class _Tile extends StatelessWidget {
     );
   }
 }
-
-List<_Tile> tiles = [
-  _Tile(
-    artistName: 'Silent Planet',
-    wordcount: 278,
-    imgUrl:
-        'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Silent Planet',
-    wordcount: 278,
-    imgUrl:
-        'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Silent Planet',
-    wordcount: 278,
-    imgUrl:
-        'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Silent Planet',
-    wordcount: 278,
-    imgUrl:
-        'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Silent Planet',
-    wordcount: 278,
-    imgUrl:
-        'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-  _Tile(
-    artistName: 'Architects',
-    wordcount: 35,
-    imgUrl:
-        'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-  ),
-  _Tile(
-    artistName: 'Currents',
-    wordcount: 89,
-    imgUrl:
-        'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-  ),
-];

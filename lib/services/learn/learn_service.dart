@@ -12,6 +12,8 @@ abstract class LearnService {
 
   Future<Map<Artist, int>> getArtistsForPreview(int amount);
 
+  Future<Map<Artist, int>> getAllArtists();
+
   Future<List<Word>> getSomeChosenWords(int amount);
 
   Future<List<Word>> allWords();

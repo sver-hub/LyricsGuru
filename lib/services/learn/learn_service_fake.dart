@@ -66,22 +66,12 @@ class LearnServiceFake extends LearnService {
 
   @override
   Future<Map<Artist, int>> getArtistsForPreview(int amount) async {
-    Artist sp = Artist(
-      name: 'Silent Planet',
-      thumbnailUrl:
-          'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
-    );
-    Artist currents = Artist(
-      name: 'Currents',
-      thumbnailUrl:
-          'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
-    );
-    Artist architects = Artist(
-      name: 'Architects',
-      thumbnailUrl:
-          'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
-    );
-    return {sp: 218, currents: 45, architects: 34};
+    return artistData;
+  }
+
+  @override
+  Future<Map<Artist, int>> getAllArtists() async {
+    return artistData;
   }
 
   @override
@@ -104,3 +94,21 @@ class LearnServiceFake extends LearnService {
     ].map((e) => Word(e, 'definition')).toList();
   }
 }
+
+Artist sp = Artist(
+  name: 'Silent Planet',
+  thumbnailUrl:
+      'https://stitchedsound.com/wp-content/uploads/2018/08/80-og-500x400.jpg',
+);
+Artist currents = Artist(
+  name: 'Currents',
+  thumbnailUrl:
+      'https://img.discogs.com/-oRT5gIpgO_AsEajmYhlZHFeJnc=/600x400/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-5238860-1591372261-9394.jpeg.jpg',
+);
+Artist architects = Artist(
+  name: 'Architects',
+  thumbnailUrl:
+      'https://www.upsetmagazine.com/images/article/_crop1500x1000/208-architects_jw_066.jpg',
+);
+
+final Map<Artist, int> artistData = {sp: 218, currents: 45, architects: 34};
