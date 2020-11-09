@@ -1,48 +1,41 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:lyrics_guru/busines_logic/models/word.dart';
 import '../word_definition_screen.dart';
 
 class WordCarousel extends StatelessWidget {
+  final Map<Word, String> data;
+
+  const WordCarousel({Key key, @required this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.width - 100;
     return CarouselSlider(
-      options: CarouselOptions(
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 10),
-        height: height,
-        viewportFraction: 1,
-      ),
-      items: [
-        _CarouselCard(
+        options: CarouselOptions(
+          autoPlay: true,
+          autoPlayInterval: Duration(seconds: 10),
           height: height,
-          word: 'Slave',
-          definition:
-              '(especially in the past) a person who is the legal property of another and is forced to obey them.',
-          imgUrl:
-              'https://sova.ponominalu.ru/wp-content/uploads/2019/11/the-weeknd-1.jpg',
+          viewportFraction: 1,
         ),
-        _CarouselCard(
-          height: height,
-          word: 'Bleach',
-          definition:
-              'a chemical (typically a solution of sodium hypochlorite or hydrogen peroxide) used to make materials whiter or for sterilizing drains, sinks, etc.',
-          imgUrl:
-              'https://lastfm.freetls.fastly.net/i/u/ar0/ebd3f53efa7e0f5e59bf46930292154d.jpg',
-        ),
-      ],
-    );
+        items: data.entries.map((e) {
+          Word word = e.key;
+          String imgUrl = e.value;
+          return _CarouselCard(
+            height: height,
+            word: word,
+            imgUrl: imgUrl,
+          );
+        }).toList());
   }
 }
 
 class _CarouselCard extends StatelessWidget {
   final imgUrl;
-  final word;
-  final definition;
+  final Word word;
   final height;
 
-  const _CarouselCard(
-      {Key key, this.imgUrl, this.word, this.definition, this.height})
+  const _CarouselCard({Key key, this.imgUrl, this.word, this.height})
       : super(key: key);
 
   @override
@@ -50,8 +43,8 @@ class _CarouselCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => DefinitionScreen(
-          word: word,
-          definition: definition,
+          word: word.word,
+          definition: word.definition,
         ),
       )),
       child: Stack(
@@ -86,7 +79,7 @@ class _CarouselCard extends StatelessWidget {
             top: 50.0,
             left: 20.0,
             child: Text(
-              this.word,
+              this.word.word,
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
@@ -99,7 +92,7 @@ class _CarouselCard extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width - 50,
               child: Text(
-                this.definition,
+                this.word.definition,
                 maxLines: 7,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 18),

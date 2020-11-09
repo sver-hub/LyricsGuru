@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import '../word_selection_screen.dart';
 
 class ChosenWords extends StatelessWidget {
+  final List<String> data;
+
+  const ChosenWords({Key key, @required this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => WordSelectionScreen(
-          words: words,
+          words: data,
           title: 'Chosen by You',
           subtitle:
               'Learn this words to become better at understanding your favourive songs',
@@ -43,7 +47,7 @@ class ChosenWords extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: double.infinity,
               child: Wrap(spacing: 15, runSpacing: 15, children: [
-                ...words.map((e) => _WordWrapper(e)).toList(),
+                ...data.map((e) => _WordWrapper(e)).toList(),
                 _WordWrapper('...And More')
               ]),
             ),
@@ -62,23 +66,6 @@ class ChosenWords extends StatelessWidget {
     );
   }
 }
-
-List words = [
-  'Spirit',
-  'Bleh',
-  'Mortal',
-  'Extinguish',
-  'Oblivion',
-  'Blasphemy',
-  'Remarkable',
-  'Disobey',
-  'Holy',
-  'Phantom',
-  'Explosive',
-  'Gore',
-  'Brood',
-  'Slaughter',
-];
 
 class _WordWrapper extends StatelessWidget {
   final String word;

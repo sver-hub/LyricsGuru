@@ -1,8 +1,8 @@
 import 'track.dart';
 
 class Word {
-  final word;
-  final definition;
+  final String word;
+  final String definition;
   int _progress = 0;
   bool hide = false;
   List<Track> _occurances = [];
