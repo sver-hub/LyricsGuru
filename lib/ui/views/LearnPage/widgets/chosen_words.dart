@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../word_selection_screen.dart';
+import '../word_list_screen.dart';
 
 class ChosenWords extends StatelessWidget {
   final List<String> data;
@@ -10,16 +10,10 @@ class ChosenWords extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WordSelectionScreen(
-          words: data,
-          title: 'Chosen by You',
-          subtitle:
-              'Learn this words to become better at understanding your favourive songs',
-        ),
+        builder: (context) => WordListScreen.chosen(),
       )),
       child: Container(
         decoration: BoxDecoration(
-          // borderRadius: BorderRadius.circular(20),
           color: Colors.grey[900],
         ),
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/learn_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_list_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
@@ -26,6 +27,8 @@ void setupServiceLocator() {
 
   serviceLocator
       .registerFactory<LearnScreenViewModel>(() => LearnScreenViewModel());
-  serviceLocator.registerFactory<ArtistSpecificViewModel>(
-      () => ArtistSpecificViewModel());
+  serviceLocator.registerFactory<ArtistSpecificScreenViewModel>(
+      () => ArtistSpecificScreenViewModel());
+  serviceLocator.registerFactory<WordListScreenViewModel>(
+      () => WordListScreenViewModel());
 }

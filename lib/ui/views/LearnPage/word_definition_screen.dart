@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lyrics_guru/busines_logic/models/word.dart';
 
 class DefinitionScreen extends StatelessWidget {
-  final word;
-  final definition;
+  final Word word;
 
-  const DefinitionScreen({Key key, this.word, this.definition})
-      : super(key: key);
+  const DefinitionScreen(this.word, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,7 +31,7 @@ class DefinitionScreen extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: Text(
-                word,
+                word.word,
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
@@ -53,7 +52,7 @@ class DefinitionScreen extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: Text(
-                definition ?? 'definition',
+                word.definition ?? 'definition',
                 style: TextStyle(
                   fontSize: 20,
                 ),

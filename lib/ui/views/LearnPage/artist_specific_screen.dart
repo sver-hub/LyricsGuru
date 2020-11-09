@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
-import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:provider/provider.dart';
-import 'word_selection_screen.dart';
+import 'word_list_screen.dart';
 import 'widgets/header.dart';
 
 class ArtistSpecificScreen extends StatefulWidget {
@@ -12,7 +12,8 @@ class ArtistSpecificScreen extends StatefulWidget {
 }
 
 class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
-  ArtistSpecificViewModel model = serviceLocator<ArtistSpecificViewModel>();
+  ArtistSpecificScreenViewModel model =
+      serviceLocator<ArtistSpecificScreenViewModel>();
 
   @override
   void initState() {
@@ -46,10 +47,10 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
     );
   }
 
-  Widget buildList(ArtistSpecificViewModel viewModel) {
-    return ChangeNotifierProvider<ArtistSpecificViewModel>(
+  Widget buildList(ArtistSpecificScreenViewModel viewModel) {
+    return ChangeNotifierProvider<ArtistSpecificScreenViewModel>(
       create: (context) => viewModel,
-      child: Consumer<ArtistSpecificViewModel>(
+      child: Consumer<ArtistSpecificScreenViewModel>(
         builder: (context, model, child) => SliverList(
           delegate: SliverChildListDelegate(model.artistData.entries
               .map((e) => _Tile(
@@ -77,11 +78,8 @@ class _Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WordSelectionScreen(
-          words: ['word1', 'word2'],
-          title: artist.name,
-          subtitle:
-              'Learn words to better understand meaning of this artist\'s songs',
+        builder: (context) => WordListScreen.artist(
+          artist: artist,
         ),
       )),
       contentPadding: EdgeInsets.all(10),

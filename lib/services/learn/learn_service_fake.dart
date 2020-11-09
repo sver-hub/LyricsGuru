@@ -13,9 +13,23 @@ class LearnServiceFake extends LearnService {
   }
 
   @override
-  Future<List<Word>> getChosenWords() {
-    // TODO: implement getChosenWords
-    throw UnimplementedError();
+  Future<List<Word>> getChosenWords() async {
+    return [
+      'Spirit',
+      'Bleh',
+      'Mortal',
+      'Extinguish',
+      'Oblivion',
+      'Blasphemy',
+      'Remarkable',
+      'Disobey',
+      'Holy',
+      'Phantom',
+      'Explosive',
+      'Gore',
+      'Brood',
+      'Slaughter',
+    ].map((e) => Word(e, 'definition')).toList();
   }
 
   @override
@@ -25,9 +39,23 @@ class LearnServiceFake extends LearnService {
   }
 
   @override
-  Future<List<Word>> getWordsOfArtist(String artistName) {
-    // TODO: implement getWordsOfArtist
-    throw UnimplementedError();
+  Future<List<Word>> getWordsOfArtist(String artistName) async {
+    return [
+      'Spirit',
+      'Bleh',
+      'Mortal',
+      'Extinguish',
+      'Oblivion',
+      'Blasphemy',
+      'Remarkable',
+      'Disobey',
+      'Holy',
+      'Phantom',
+      'Explosive',
+      'Gore',
+      'Brood',
+      'Slaughter',
+    ].map((e) => Word(e, 'definition')).toList();
   }
 
   @override

@@ -42,10 +42,7 @@ class _CarouselCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => DefinitionScreen(
-          word: word.word,
-          definition: word.definition,
-        ),
+        builder: (context) => DefinitionScreen(word),
       )),
       child: Stack(
         children: [
