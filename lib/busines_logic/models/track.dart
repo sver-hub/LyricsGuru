@@ -1,13 +1,44 @@
 import 'album.dart';
 
 class Track {
-  final title;
-  final Album album;
-  String _lyrics;
+  static const TABLE_NAME = 'track';
+  static const COLUMN_ID = '_id';
+  static const COLUMN_TITLE = 'title';
+  static const COLUMN_ALBUM_ID = 'album_id';
+  static const COLUMN_LYRICS = 'lyrics';
+  static const COLUMNS = [
+    COLUMN_ID,
+    COLUMN_TITLE,
+    COLUMN_ALBUM_ID,
+    COLUMN_LYRICS
+  ];
+
+  int id;
+  String title;
+  int albumId;
+  Album album;
+  String lyrics;
 
   Track({this.title, this.album});
 
-  set lyrics(String l) => _lyrics = l;
+  Track.fromMap(Map<String, dynamic> map) {
+    id = map[COLUMN_ID];
+    title = map[COLUMN_TITLE];
+    albumId = map[COLUMN_ALBUM_ID];
+    lyrics = map[COLUMN_LYRICS];
+  }
 
-  String get lyrics => _lyrics;
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
+      COLUMN_TITLE: title,
+      COLUMN_ALBUM_ID: album.id,
+      COLUMN_LYRICS: lyrics
+    };
+
+    if (id != null) {
+      map[COLUMN_ID] = id;
+    }
+
+    return map;
+  }
 }

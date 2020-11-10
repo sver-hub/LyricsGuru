@@ -14,22 +14,7 @@ class LearnServiceFake extends LearnService {
 
   @override
   Future<List<Word>> getChosenWords() async {
-    return [
-      'Spirit',
-      'Bleh',
-      'Mortal',
-      'Extinguish',
-      'Oblivion',
-      'Blasphemy',
-      'Remarkable',
-      'Disobey',
-      'Holy',
-      'Phantom',
-      'Explosive',
-      'Gore',
-      'Brood',
-      'Slaughter',
-    ].map((e) => Word(e, 'definition')).toList();
+    return words;
   }
 
   @override
@@ -40,28 +25,15 @@ class LearnServiceFake extends LearnService {
 
   @override
   Future<List<Word>> getWordsOfArtist(String artistName) async {
-    return [
-      'Spirit',
-      'Bleh',
-      'Mortal',
-      'Extinguish',
-      'Oblivion',
-      'Blasphemy',
-      'Remarkable',
-      'Disobey',
-      'Holy',
-      'Phantom',
-      'Explosive',
-      'Gore',
-      'Brood',
-      'Slaughter',
-    ].map((e) => Word(e, 'definition')).toList();
+    return words;
   }
 
   @override
   Future<List<Word>> getRandomWords(int amount) async {
-    final Word slave = Word('Slave',
-        '(especially in the past) a person who is the legal property of another and is forced to obey them.');
+    final Word slave = Word(
+        word: 'Slave',
+        definition:
+            '(especially in the past) a person who is the legal property of another and is forced to obey them.');
     slave.addOccurance(Track(
       title: 'Servant And Master',
       album: Album(
@@ -75,8 +47,10 @@ class LearnServiceFake extends LearnService {
             'https://img.discogs.com/IDnTBE0T-7S4JRsdP6xwcMqnmkc=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-10151544-1492517616-3005.jpeg.jpg',
       ),
     ));
-    final Word bleach = Word('Bleach',
-        'a chemical (typically a solution of sodium hypochlorite or hydrogen peroxide) used to make materials whiter or for sterilizing drains, sinks, etc.');
+    final Word bleach = Word(
+        word: 'Bleach',
+        definition:
+            'a chemical (typically a solution of sodium hypochlorite or hydrogen peroxide) used to make materials whiter or for sterilizing drains, sinks, etc.');
     bleach.addOccurance(Track(
       title: 'Bleach Bath',
       album: Album(
@@ -104,22 +78,12 @@ class LearnServiceFake extends LearnService {
 
   @override
   Future<List<Word>> getSomeChosenWords(int amount) async {
-    return [
-      'Spirit',
-      'Bleh',
-      'Mortal',
-      'Extinguish',
-      'Oblivion',
-      'Blasphemy',
-      'Remarkable',
-      'Disobey',
-      'Holy',
-      'Phantom',
-      'Explosive',
-      'Gore',
-      'Brood',
-      'Slaughter',
-    ].map((e) => Word(e, 'definition')).toList();
+    return words;
+  }
+
+  @override
+  Future<bool> saveWord(Word word) {
+    throw UnimplementedError();
   }
 }
 
@@ -140,3 +104,25 @@ Artist architects = Artist(
 );
 
 final Map<Artist, int> artistData = {sp: 218, currents: 45, architects: 34};
+
+final List<Word> words = [
+  'Spirit',
+  'Bleh',
+  'Mortal',
+  'Extinguish',
+  'Oblivion',
+  'Blasphemy',
+  'Remarkable',
+  'Disobey',
+  'Holy',
+  'Phantom',
+  'Explosive',
+  'Gore',
+  'Brood',
+  'Slaughter',
+]
+    .map((e) => Word(
+          word: e,
+          definition: 'definition',
+        ))
+    .toList();
