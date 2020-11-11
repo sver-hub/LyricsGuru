@@ -13,13 +13,13 @@ class Track {
     COLUMN_LYRICS
   ];
 
-  int id;
+  String id;
   String title;
-  int albumId;
+  String albumId;
   Album album;
   String lyrics;
 
-  Track({this.title, this.album});
+  Track({this.id, this.title, this.album});
 
   Track.fromMap(Map<String, dynamic> map) {
     id = map[COLUMN_ID];

@@ -7,7 +7,7 @@ class WordRepository extends Repository<Word> {
   Future<List<Word>> getAll() async {
     List<Map<String, dynamic>> queryData =
         await DatabaseProvider.db.query(Word.TABLE_NAME, columns: Word.COLUMNS);
-    return queryData.map((e) => Word.fromMap(e));
+    return queryData.map((e) => Word.fromMap(e)).toList();
   }
 
   @override
@@ -24,8 +24,20 @@ class WordRepository extends Repository<Word> {
   }
 
   @override
-  Future<bool> save(Word model) {
-    // TODO: implement save
-    throw UnimplementedError();
+  Future<bool> save(Word model) async {
+    var map = model.toMap();
+    int id = map[Word.COLUMN_ID];
+    Word inDb = await getById(id);
+
+    if (inDb == null) {
+      int inserted = await DatabaseProvider.db.insert(Word.TABLE_NAME, map);
+      if (inserted != 1) throw Exception('Failed insert');
+      return true;
+    }
+
+    int updated = await DatabaseProvider.db.update(Word.TABLE_NAME, map,
+        where: '${Word.COLUMN_ID} = ?', whereArgs: [id]);
+    if (updated != 1) throw Exception('Failed update');
+    return true;
   }
 }

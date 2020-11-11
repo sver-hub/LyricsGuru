@@ -21,7 +21,7 @@ class _LyricsScreenState extends State<LyricsScreen> {
         physics: BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 20, 40),
+            padding: const EdgeInsets.fromLTRB(10, 20, 20, 20),
             child: Row(
               children: [
                 IconButton(

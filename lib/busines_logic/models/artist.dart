@@ -5,11 +5,11 @@ class Artist {
   static const COLUMN_THUMBNAIL_URL = 'thumbnail_url';
   static const COLUMNS = [COLUMN_ID, COLUMN_NAME, COLUMN_THUMBNAIL_URL];
 
-  int id;
+  String id;
   String name;
   String thumbnailUrl;
 
-  Artist({this.name, this.thumbnailUrl});
+  Artist({this.id, this.name, this.thumbnailUrl});
 
   Artist.fromMap(Map<String, dynamic> map) {
     id = map[COLUMN_ID];

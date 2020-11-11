@@ -15,7 +15,10 @@ class AlbumsScreenViewModel extends ChangeNotifier {
 
   void loadData(Artist artist) async {
     _artist = artist;
-    _albums = await _libraryService.getAlbumsOfArtist(_artist.name);
+    _albums = await _libraryService.getAlbumsByArtistId(_artist.id);
+    _albums.forEach((album) {
+      album.artist = _artist;
+    });
     notifyListeners();
   }
 }

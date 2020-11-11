@@ -15,14 +15,14 @@ class Word {
     COLUMN_LEARNT
   ];
 
-  int id;
+  String id;
   String word;
   String definition;
   int _progress = 0;
   bool learnt = false;
   List<Track> _occurances = [];
 
-  Word({this.word, this.definition});
+  Word({this.id, this.word, this.definition});
 
   Word.fromMap(Map<String, dynamic> map) {
     id = map[COLUMN_ID];

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lyrics_guru/db/repository/repository_locator.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 
 import 'ui/views/nav_screen.dart';
 
 void main() {
   setupServiceLocator();
+  setupRepositoryLocator();
   runApp(MyApp());
 }
 
