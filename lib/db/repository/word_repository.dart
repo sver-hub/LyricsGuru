@@ -1,12 +1,13 @@
 import 'package:lyrics_guru/busines_logic/models/word.dart';
 import 'package:lyrics_guru/db/database.dart';
 import 'package:lyrics_guru/db/repository/repository.dart';
+import 'package:sqflite/sqflite.dart';
 
 class WordRepository extends Repository<Word> {
   @override
   Future<List<Word>> getAll() async {
     List<Map<String, dynamic>> queryData =
-        await DatabaseProvider.db.query(Word.TABLE_NAME, columns: Word.COLUMNS);
+        await DatabaseProvider.db.query(Word.TABLE_NAME);
     return queryData.map((e) => Word.fromMap(e)).toList();
   }
 
@@ -14,7 +15,6 @@ class WordRepository extends Repository<Word> {
   Future<Word> getById(int id) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Word.TABLE_NAME,
-        columns: Word.COLUMNS,
         where: '${Word.COLUMN_ID} = ?',
         whereArgs: [id]);
 
@@ -39,5 +39,13 @@ class WordRepository extends Repository<Word> {
         where: '${Word.COLUMN_ID} = ?', whereArgs: [id]);
     if (updated != 1) throw Exception('Failed update');
     return true;
+  }
+
+  @override
+  Future<int> getCount() async {
+    var x = await DatabaseProvider.db
+        .rawQuery('SELECT COUNT (*) from ${Word.TABLE_NAME}');
+    int count = Sqflite.firstIntValue(x);
+    return count;
   }
 }

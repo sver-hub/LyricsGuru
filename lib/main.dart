@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lyrics_guru/db/repository/repository_locator.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/ui/landing_page.dart';
+import 'package:lyrics_guru/ui/views/AuthPage/auth_screen.dart';
 
 import 'ui/views/nav_screen.dart';
 
@@ -76,7 +78,7 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
               )),
             ),
           )),
-      home: NavScreen(),
+      home: LandingPage(), //NavScreen(),
     );
   }
 }

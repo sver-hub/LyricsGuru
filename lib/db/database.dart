@@ -1,13 +1,50 @@
 import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
+import 'package:lyrics_guru/busines_logic/models/user.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class DatabaseProvider {
-  bool deleted = false;
+  static const String _createTableArtist = 'CREATE TABLE ${Artist.TABLE_NAME} ('
+      '${Artist.COLUMN_ID} TEXT PRIMARY KEY,'
+      '${Artist.COLUMN_NAME} TEXT,'
+      '${Artist.COLUMN_THUMBNAIL_URL} TEXT)';
+
+  static const String _createTableAlbum = 'CREATE TABLE ${Album.TABLE_NAME} ('
+      '${Album.COLUMN_ID} TEXT PRIMARY KEY,'
+      '${Album.COLUMN_TITLE} TEXT,'
+      '${Album.COLUMN_COVER_URL} TEXT,'
+      '${Album.COLUMN_ARTIST_ID} TEXT,'
+      'FOREIGN KEY (${Album.COLUMN_ARTIST_ID}) REFERENCES ${Artist.TABLE_NAME} (${Artist.COLUMN_ID}))';
+
+  static const String _createTableTrack = 'CREATE TABLE ${Track.TABLE_NAME} ('
+      '${Track.COLUMN_ID} TEXT PRIMARY KEY,'
+      '${Track.COLUMN_TITLE} TEXT,'
+      '${Track.COLUMN_ALBUM_ID} INTEGER,'
+      '${Track.COLUMN_LYRICS} TEXT,'
+      'FOREIGN KEY (${Track.COLUMN_ALBUM_ID}) REFERENCES ${Album.TABLE_NAME} (${Album.COLUMN_ID}))';
+
+  static const String _createTableWord = 'CREATE TABLE ${Word.TABLE_NAME} ('
+      '${Word.COLUMN_ID} TEXT PRIMARY KEY,'
+      '${Word.COLUMN_WORD} TEXT,'
+      '${Word.COLUMN_DEFINITION} TEXT,'
+      '${Word.COLUMN_PROGRESS} INTEGER,'
+      '${Word.COLUMN_LEARNT} INTEGER)';
+
+  static const String _createTableWordTrack =
+      'CREATE TABLE ${Word.TABLE_NAME}_${Track.TABLE_NAME} ('
+      '${Word.TABLE_NAME}${Word.COLUMN_ID} TEXT,'
+      '${Track.TABLE_NAME}${Track.COLUMN_ID} TEXT,'
+      'PRIMARY KEY (${Word.TABLE_NAME}${Word.COLUMN_ID}, ${Track.TABLE_NAME}${Track.COLUMN_ID}))';
+
+  static const String _createTableUser = 'CREATE TABLE ${User.TABLE_NAME} ('
+      '${User.COLUMN_NAME} TEXT,'
+      '${User.COLUMN_TOKEN} TEXT)';
+
+  bool deleted = true;
   DatabaseProvider._();
   static final DatabaseProvider db = DatabaseProvider._();
 
@@ -17,6 +54,7 @@ class DatabaseProvider {
     print('Getting db');
 
     if (!deleted) {
+      print('Deleting DB');
       var databasesPath = await getDatabasesPath();
       String path = join(databasesPath, 'LyricsGuruDB.db');
       await deleteDatabase(path);
@@ -38,36 +76,12 @@ class DatabaseProvider {
     return await openDatabase(join(dbPath, 'LyricsGuruDB.db'), version: 1,
         onCreate: (Database database, int version) async {
       print('Creating db');
-      await database.execute(
-        'CREATE TABLE ${Artist.TABLE_NAME} ('
-        '${Artist.COLUMN_ID} TEXT PRIMARY KEY,'
-        '${Artist.COLUMN_NAME} TEXT,'
-        '${Artist.COLUMN_THUMBNAIL_URL} TEXT)',
-      );
-      await database.execute(
-        'CREATE TABLE ${Album.TABLE_NAME} ('
-        '${Album.COLUMN_ID} TEXT PRIMARY KEY,'
-        '${Album.COLUMN_TITLE} TEXT,'
-        '${Album.COLUMN_COVER_URL} TEXT,'
-        '${Album.COLUMN_ARTIST_ID} TEXT,'
-        'FOREIGN KEY (${Album.COLUMN_ARTIST_ID}) REFERENCES ${Artist.TABLE_NAME} (${Artist.COLUMN_ID}))',
-      );
-      await database.execute(
-        'CREATE TABLE ${Track.TABLE_NAME} ('
-        '${Track.COLUMN_ID} TEXT PRIMARY KEY,'
-        '${Track.COLUMN_TITLE} TEXT,'
-        '${Track.COLUMN_ALBUM_ID} INTEGER,'
-        '${Track.COLUMN_LYRICS} TEXT,'
-        'FOREIGN KEY (${Track.COLUMN_ALBUM_ID}) REFERENCES ${Album.TABLE_NAME} (${Album.COLUMN_ID}))',
-      );
-      await database.execute(
-        'CREATE TABLE ${Word.TABLE_NAME} ('
-        '${Word.COLUMN_ID} TEXt PRIMARY KEY,'
-        '${Word.COLUMN_WORD} TEXT,'
-        '${Word.COLUMN_DEFINITION} TEXT,'
-        '${Word.COLUMN_PROGRESS} INTEGER,'
-        '${Word.COLUMN_LEARNT} INTEGER)',
-      );
+      await database.execute(_createTableArtist);
+      await database.execute(_createTableAlbum);
+      await database.execute(_createTableTrack);
+      await database.execute(_createTableWord);
+      await database.execute(_createTableWordTrack);
+      await database.execute(_createTableUser);
 
       for (Artist artist in artists) {
         await database.insert(Artist.TABLE_NAME, artist.toMap());
@@ -122,6 +136,12 @@ class DatabaseProvider {
     final db = await database;
     return await db.insert(table, values,
         nullColumnHack: nullColumnHack, conflictAlgorithm: conflictAlgorithm);
+  }
+
+  Future<List<Map<String, dynamic>>> rawQuery(String sql,
+      [List<dynamic> arguments]) async {
+    final db = await database;
+    return await db.rawQuery(sql, arguments);
   }
 }
 

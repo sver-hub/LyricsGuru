@@ -1,12 +1,13 @@
 import 'package:lyrics_guru/busines_logic/models/track.dart';
 import 'package:lyrics_guru/db/database.dart';
 import 'package:lyrics_guru/db/repository/repository.dart';
+import 'package:sqflite/sqflite.dart';
 
 class TrackRepository extends Repository<Track> {
   @override
   Future<List<Track>> getAll() async {
-    List<Map<String, dynamic>> queryData = await DatabaseProvider.db
-        .query(Track.TABLE_NAME, columns: Track.COLUMNS);
+    List<Map<String, dynamic>> queryData =
+        await DatabaseProvider.db.query(Track.TABLE_NAME);
     return queryData.map((e) => Track.fromMap(e)).toList();
   }
 
@@ -14,7 +15,6 @@ class TrackRepository extends Repository<Track> {
   Future<Track> getById(int id) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Track.TABLE_NAME,
-        columns: Track.COLUMNS,
         where: '${Track.COLUMN_ID} = ?',
         whereArgs: [id]);
 
@@ -44,12 +44,19 @@ class TrackRepository extends Repository<Track> {
   Future<List<Track>> getAllByAlbumId(String albumId) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Track.TABLE_NAME,
-        columns: Track.COLUMNS,
         where: '${Track.COLUMN_ALBUM_ID} = ?',
         whereArgs: [albumId]);
 
     if (queryData.length == 0) return null;
 
     return queryData.map((e) => Track.fromMap(e)).toList();
+  }
+
+  @override
+  Future<int> getCount() async {
+    var x = await DatabaseProvider.db
+        .rawQuery('SELECT COUNT (*) from ${Track.TABLE_NAME}');
+    int count = Sqflite.firstIntValue(x);
+    return count;
   }
 }

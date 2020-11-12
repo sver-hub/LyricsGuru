@@ -1,12 +1,13 @@
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/db/database.dart';
 import 'package:lyrics_guru/db/repository/repository.dart';
+import 'package:sqflite/sqflite.dart';
 
 class ArtistRepository extends Repository<Artist> {
   @override
   Future<List<Artist>> getAll() async {
-    List<Map<String, dynamic>> queryData = await DatabaseProvider.db
-        .query(Artist.TABLE_NAME, columns: Artist.COLUMNS);
+    List<Map<String, dynamic>> queryData =
+        await DatabaseProvider.db.query(Artist.TABLE_NAME);
     return queryData.map((e) => Artist.fromMap(e)).toList();
   }
 
@@ -16,7 +17,6 @@ class ArtistRepository extends Repository<Artist> {
 
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Artist.TABLE_NAME,
-        columns: Artist.COLUMNS,
         where: '${Artist.COLUMN_ID} = ?',
         whereArgs: [id]);
 
@@ -42,5 +42,13 @@ class ArtistRepository extends Repository<Artist> {
         where: '${Artist.COLUMN_ID} = ?', whereArgs: [id]);
     if (updated != 1) throw Exception('Failed update');
     return true;
+  }
+
+  @override
+  Future<int> getCount() async {
+    var x = await DatabaseProvider.db
+        .rawQuery('SELECT COUNT (*) from ${Artist.TABLE_NAME}');
+    int count = Sqflite.firstIntValue(x);
+    return count;
   }
 }

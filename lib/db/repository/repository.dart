@@ -4,4 +4,6 @@ abstract class Repository<T> {
   Future<T> getById(int id);
 
   Future<List<T>> getAll();
+
+  Future<int> getCount();
 }
