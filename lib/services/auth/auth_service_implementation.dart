@@ -3,13 +3,12 @@ import 'package:lyrics_guru/db/repository/repository_locator.dart';
 import 'package:lyrics_guru/db/repository/user_repository.dart';
 import 'package:lyrics_guru/services/auth/auth_service.dart';
 
-class AuthServiceTest extends AuthService {
+class AuthServiceImplementation extends AuthService {
   UserRepository _userRepository = repositoryLocator<UserRepository>();
   @override
   Future<User> getUser() async {
     List<User> users = await _userRepository.getAll();
     if (users.isEmpty) {
-      print('empty');
       return User();
     }
     print(users[0].token);

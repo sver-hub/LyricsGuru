@@ -7,7 +7,7 @@ import 'package:lyrics_guru/db/repository/repository_locator.dart';
 import 'package:lyrics_guru/db/repository/track_repository.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
 
-class LibraryServiceDB extends LibraryService {
+class LibraryServiceImplementation extends LibraryService {
   ArtistRepository _artistRepository = repositoryLocator<ArtistRepository>();
   AlbumRepository _albumRepository = repositoryLocator<AlbumRepository>();
   TrackRepository _trackRepository = repositoryLocator<TrackRepository>();
@@ -20,6 +20,10 @@ class LibraryServiceDB extends LibraryService {
 
   @override
   Future<List<Artist>> getAllArtists() async {
+    int numOfArtists = await _artistRepository.getCount();
+    if (numOfArtists == 0) {
+      _fetchLibrary();
+    }
     List<Artist> fromdb = await _artistRepository.getAll();
     return fromdb;
   }
@@ -29,4 +33,6 @@ class LibraryServiceDB extends LibraryService {
     List<Track> tracks = await _trackRepository.getAllByAlbumId(albumId);
     return tracks;
   }
+
+  Future<bool> _fetchLibrary() async {}
 }

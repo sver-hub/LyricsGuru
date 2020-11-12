@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/view_models/auth_page_viewmodel.dart';
 import 'package:lyrics_guru/ui/views/AuthPage/delayed_animation.dart';
-import 'package:spotify/spotify.dart';
 
 class AuthScreen extends StatefulWidget {
-  AuthPageViewModel model;
+  final AuthPageViewModel model;
 
   AuthScreen({@required this.model});
 
@@ -14,11 +13,6 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen>
     with SingleTickerProviderStateMixin {
-  Spotify spotify = Spotify(
-      clientId: '6835c2dadf634991b30d7052e3b43a4a',
-      redirectUrl: 'lyrics-guru://callback',
-      scopes: ['user-library-read']);
-
   final int delayedAmount = 500;
   double _scale;
   AnimationController _controller;
@@ -34,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen>
     )..addListener(() {
         setState(() {});
       });
+
     super.initState();
   }
 
@@ -170,9 +165,6 @@ class _AuthScreenState extends State<AuthScreen>
   }
 
   void _onTap() async {
-    bool success = await spotify.authenticate();
-    if (success) {
-      widget.model.setToken(spotify.token);
-    }
+    await widget.model.authenticate();
   }
 }

@@ -42,6 +42,7 @@ class DatabaseProvider {
 
   static const String _createTableUser = 'CREATE TABLE ${User.TABLE_NAME} ('
       '${User.COLUMN_NAME} TEXT,'
+      '${User.COLUMN_IMAGE_URL} TEXT,'
       '${User.COLUMN_TOKEN} TEXT)';
 
   bool deleted = true;
@@ -83,17 +84,17 @@ class DatabaseProvider {
       await database.execute(_createTableWordTrack);
       await database.execute(_createTableUser);
 
-      for (Artist artist in artists) {
-        await database.insert(Artist.TABLE_NAME, artist.toMap());
-      }
+      // for (Artist artist in artists) {
+      //   await database.insert(Artist.TABLE_NAME, artist.toMap());
+      // }
 
-      for (Album album in albums) {
-        await database.insert(Album.TABLE_NAME, album.toMap());
-      }
+      // for (Album album in albums) {
+      //   await database.insert(Album.TABLE_NAME, album.toMap());
+      // }
 
-      for (Track track in tracks) {
-        await database.insert(Track.TABLE_NAME, track.toMap());
-      }
+      // for (Track track in tracks) {
+      //   await database.insert(Track.TABLE_NAME, track.toMap());
+      // }
     });
   }
 

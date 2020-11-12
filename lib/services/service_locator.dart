@@ -8,20 +8,24 @@ import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/auth/auth_service.dart';
-import 'package:lyrics_guru/services/auth/auth_service_test.dart';
-
-import 'learn/learn_service.dart';
-import 'learn/learn_service_fake.dart';
-import 'library/library_service.dart';
-import 'library/library_service_db.dart';
+import 'package:lyrics_guru/services/auth/auth_service_implementation.dart';
+import 'package:lyrics_guru/services/learn/learn_service.dart';
+import 'package:lyrics_guru/services/learn/learn_service_fake.dart';
+import 'package:lyrics_guru/services/library/library_service.dart';
+import 'package:lyrics_guru/services/library/library_service_implementation.dart';
+import 'package:lyrics_guru/services/spotify/spotify_service.dart';
+import 'package:lyrics_guru/services/spotify/spotify_service_implementation.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
 void setupServiceLocator() {
-  serviceLocator
-      .registerLazySingleton<LibraryService>(() => LibraryServiceDB());
+  serviceLocator.registerLazySingleton<LibraryService>(
+      () => LibraryServiceImplementation());
   serviceLocator.registerLazySingleton<LearnService>(() => LearnServiceFake());
-  serviceLocator.registerLazySingleton<AuthService>(() => AuthServiceTest());
+  serviceLocator
+      .registerLazySingleton<AuthService>(() => AuthServiceImplementation());
+  serviceLocator.registerLazySingleton<SpotifyService>(
+      () => SpotifyServiceImplementation());
 
   serviceLocator
       .registerFactory<ArtistsScreenViewModel>(() => ArtistsScreenViewModel());
