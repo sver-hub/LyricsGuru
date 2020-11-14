@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_guru/busines_logic/view_models/auth_page_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/auth_model.dart';
 import 'package:lyrics_guru/ui/views/AuthPage/delayed_animation.dart';
 
 class AuthScreen extends StatefulWidget {
-  final AuthPageViewModel model;
+  final AuthModel model;
 
   AuthScreen({@required this.model});
 

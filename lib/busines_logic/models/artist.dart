@@ -1,3 +1,5 @@
+import 'package:quiver/core.dart';
+
 class Artist {
   static const TABLE_NAME = 'artist';
   static const COLUMN_ID = '_id';
@@ -16,6 +18,10 @@ class Artist {
     name = map[COLUMN_NAME];
     thumbnailUrl = map[COLUMN_THUMBNAIL_URL];
   }
+
+  bool operator ==(o) => o is Artist && o.id == id && o.name == name;
+
+  int get hashCode => hash2(id.hashCode, name.hashCode);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

@@ -12,13 +12,14 @@ class AlbumRepository extends Repository<Album> {
   }
 
   @override
-  Future<Album> getById(int id) async {
+  Future<Album> getById(String id) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Album.TABLE_NAME,
         where: '${Album.COLUMN_ID} = ?',
         whereArgs: [id]);
 
     if (queryData.length > 1) throw Exception('Bad DB');
+    if (queryData.length == 0) return null;
 
     return Album.fromMap(queryData[0]);
   }
@@ -26,18 +27,18 @@ class AlbumRepository extends Repository<Album> {
   @override
   Future<bool> save(Album model) async {
     var map = model.toMap();
-    int id = map[Album.COLUMN_ID];
+    final id = map[Album.COLUMN_ID];
     Album inDb = await getById(id);
 
     if (inDb == null) {
       int inserted = await DatabaseProvider.db.insert(Album.TABLE_NAME, map);
-      if (inserted != 1) throw Exception('Failed insert');
+      if (inserted < 1) throw Exception('Failed insert');
       return true;
     }
 
     int updated = await DatabaseProvider.db.update(Album.TABLE_NAME, map,
         where: '${Album.COLUMN_ID} = ?', whereArgs: [id]);
-    if (updated != 1) throw Exception('Failed update');
+    if (updated < 1) throw Exception('Failed update');
     return true;
   }
 

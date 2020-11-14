@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
@@ -49,24 +50,29 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
               ),
             ),
           ),
-          buildGrid(model),
+          SliverToBoxAdapter(
+            child: IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () {
+                model.fetchData();
+              },
+            ),
+          ),
+          buildList(model),
         ],
       ),
     );
   }
 
-  Widget buildGrid(ArtistsScreenViewModel viewModel) {
+  Widget buildList(ArtistsScreenViewModel viewModel) {
     return ChangeNotifierProvider<ArtistsScreenViewModel>(
       create: (context) => viewModel,
       child: Consumer<ArtistsScreenViewModel>(
-        builder: (context, model, child) => SliverGrid.count(
-          crossAxisCount: 2,
-          children: model.artists.map((e) => _ArtistPreview(e)).toList(),
-          crossAxisSpacing: 30.0,
-          mainAxisSpacing: 50.0,
-          childAspectRatio: 0.83,
-        ),
-      ),
+          builder: (context, model, child) => SliverList(
+                delegate: SliverChildListDelegate(
+                  [for (final artist in model.artists) _ArtistPreview(artist)],
+                ),
+              )),
     );
   }
 }
@@ -78,42 +84,37 @@ class _ArtistPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => AlbumsScreen(
           artist: this.artist,
         ),
       )),
-      child: SizedBox.expand(
-        child: Container(
-          child: Column(
-            children: [
-              Expanded(
-                child: Hero(
-                  tag: this.artist.thumbnailUrl,
-                  child: ClipRRect(
-                    child: Image(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(this.artist.thumbnailUrl),
-                    ),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Hero(
+              tag: artist.thumbnailUrl,
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: CachedNetworkImageProvider(
+                  artist.thumbnailUrl,
                 ),
               ),
-              SizedBox(
-                height: 10,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              artist.name,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.2,
               ),
-              Text(
-                this.artist.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.2,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

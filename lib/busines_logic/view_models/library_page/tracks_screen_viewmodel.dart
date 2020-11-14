@@ -19,6 +19,7 @@ class TracksScreenViewModel extends ChangeNotifier {
     _tracks.forEach((track) {
       track.album = _album;
     });
+    _tracks.sort((a, b) => a.trackNumber.compareTo(b.trackNumber));
     notifyListeners();
   }
 }

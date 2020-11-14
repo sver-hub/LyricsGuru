@@ -12,13 +12,14 @@ class WordRepository extends Repository<Word> {
   }
 
   @override
-  Future<Word> getById(int id) async {
+  Future<Word> getById(String id) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Word.TABLE_NAME,
         where: '${Word.COLUMN_ID} = ?',
         whereArgs: [id]);
 
     if (queryData.length > 1) throw Exception('Bad DB');
+    if (queryData.length == 0) return null;
 
     return Word.fromMap(queryData[0]);
   }
@@ -26,18 +27,18 @@ class WordRepository extends Repository<Word> {
   @override
   Future<bool> save(Word model) async {
     var map = model.toMap();
-    int id = map[Word.COLUMN_ID];
+    final id = map[Word.COLUMN_ID];
     Word inDb = await getById(id);
 
     if (inDb == null) {
       int inserted = await DatabaseProvider.db.insert(Word.TABLE_NAME, map);
-      if (inserted != 1) throw Exception('Failed insert');
+      if (inserted < 1) throw Exception('Failed insert');
       return true;
     }
 
     int updated = await DatabaseProvider.db.update(Word.TABLE_NAME, map,
         where: '${Word.COLUMN_ID} = ?', whereArgs: [id]);
-    if (updated != 1) throw Exception('Failed update');
+    if (updated < 1) throw Exception('Failed update');
     return true;
   }
 

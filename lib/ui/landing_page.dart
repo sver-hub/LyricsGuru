@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_guru/busines_logic/view_models/auth_page_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/auth_model.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:lyrics_guru/ui/views/AuthPage/auth_screen.dart';
 import 'package:lyrics_guru/ui/views/nav_screen.dart';
@@ -12,7 +12,7 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  AuthPageViewModel model = serviceLocator<AuthPageViewModel>();
+  AuthModel model = serviceLocator<AuthModel>();
 
   @override
   void initState() {
@@ -25,10 +25,10 @@ class _LandingPageState extends State<LandingPage> {
     return buildScreen(model);
   }
 
-  Widget buildScreen(AuthPageViewModel viewModel) {
-    return ChangeNotifierProvider<AuthPageViewModel>(
+  Widget buildScreen(AuthModel viewModel) {
+    return ChangeNotifierProvider<AuthModel>(
       create: (context) => viewModel,
-      child: Consumer<AuthPageViewModel>(builder: (context, model, child) {
+      child: Consumer<AuthModel>(builder: (context, model, child) {
         if (model.user == null) {
           print('loading');
           return Scaffold(

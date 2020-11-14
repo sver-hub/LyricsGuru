@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
@@ -45,7 +46,8 @@ class _TracksScreenState extends State<TracksScreen> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
-                            image: NetworkImage(this.widget.album.coverUrl),
+                            image: CachedNetworkImageProvider(
+                                this.widget.album.coverUrl),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -53,12 +55,11 @@ class _TracksScreenState extends State<TracksScreen> {
                       Container(
                         height: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: Colors.white,
                           gradient: LinearGradient(
                             begin: FractionalOffset(0.5, 0.7),
                             end: FractionalOffset.bottomCenter,
                             colors: [
-                              Colors.grey.withOpacity(0.0),
+                              Colors.black.withOpacity(0.0),
                               Colors.black.withOpacity(0.4),
                             ],
                             stops: [0.0, 1.0],

@@ -8,4 +8,6 @@ abstract class LibraryService {
   Future<List<Album>> getAlbumsByArtistId(String artistId);
 
   Future<List<Track>> getTracksByAlbumId(String albumId);
+
+  Future<bool> saveCompleteByTrack(Track track);
 }

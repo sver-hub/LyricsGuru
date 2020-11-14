@@ -12,7 +12,7 @@ class UserRepository extends Repository<User> {
   }
 
   @override
-  Future<User> getById(int id) {
+  Future<User> getById(String id) {
     // TODO: implement getById
     throw UnimplementedError();
   }
@@ -26,10 +26,10 @@ class UserRepository extends Repository<User> {
 
     if (count == 0) {
       int inserted = await DatabaseProvider.db.insert(User.TABLE_NAME, map);
-      if (inserted != 1) throw Exception('Failed insert');
+      if (inserted < 1) throw Exception('Failed insert');
     } else {
       int updated = await DatabaseProvider.db.update(User.TABLE_NAME, map);
-      if (updated != 1) throw Exception('Failed update');
+      if (updated < 1) throw Exception('Failed update');
     }
     return true;
   }

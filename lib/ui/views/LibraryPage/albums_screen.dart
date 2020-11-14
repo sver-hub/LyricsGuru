@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
@@ -41,12 +42,28 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
                   child: Stack(
                     children: [
                       Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width - 50,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20.0),
                           child: Image(
-                            image:
-                                NetworkImage(this.widget.artist.thumbnailUrl),
-                            fit: BoxFit.fitWidth,
+                            image: CachedNetworkImageProvider(
+                                this.widget.artist.thumbnailUrl),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.width - 50,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: FractionalOffset(0.5, 0.7),
+                            end: FractionalOffset.bottomCenter,
+                            colors: [
+                              Colors.black.withOpacity(0.0),
+                              Colors.black.withOpacity(0.4),
+                            ],
+                            stops: [0.0, 1.0],
                           ),
                         ),
                       ),
@@ -141,7 +158,7 @@ class _AlbumPreview extends StatelessWidget {
                   child: ClipRRect(
                     child: Image(
                       fit: BoxFit.cover,
-                      image: NetworkImage(this.album.coverUrl),
+                      image: CachedNetworkImageProvider(this.album.coverUrl),
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),

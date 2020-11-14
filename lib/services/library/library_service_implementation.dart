@@ -20,10 +20,6 @@ class LibraryServiceImplementation extends LibraryService {
 
   @override
   Future<List<Artist>> getAllArtists() async {
-    int numOfArtists = await _artistRepository.getCount();
-    if (numOfArtists == 0) {
-      _fetchLibrary();
-    }
     List<Artist> fromdb = await _artistRepository.getAll();
     return fromdb;
   }
@@ -34,5 +30,12 @@ class LibraryServiceImplementation extends LibraryService {
     return tracks;
   }
 
-  Future<bool> _fetchLibrary() async {}
+  @override
+  Future<bool> saveCompleteByTrack(Track track) async {
+    bool result = await _artistRepository.save(track.album.artist);
+    if (!result) return result;
+    result = await _albumRepository.save(track.album);
+    if (!result) return result;
+    return await _trackRepository.save(track);
+  }
 }
