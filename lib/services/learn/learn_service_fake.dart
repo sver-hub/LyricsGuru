@@ -7,24 +7,12 @@ import 'learn_service.dart';
 
 class LearnServiceFake extends LearnService {
   @override
-  Future<List<Word>> allWords() {
-    // TODO: implement allWords
-    throw UnimplementedError();
-  }
-
-  @override
   Future<List<Word>> getChosenWords() async {
     return words;
   }
 
   @override
-  Future<List<Word>> getWordsOfAlbum(String albumTitle) {
-    // TODO: implement getWordsOfAlbum
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Word>> getWordsOfArtist(String artistName) async {
+  Future<List<Word>> getWordsByArtistId(String artistId) async {
     return words;
   }
 
@@ -67,22 +55,19 @@ class LearnServiceFake extends LearnService {
   }
 
   @override
-  Future<Map<Artist, int>> getArtistsForPreview(int amount) async {
-    return artistData;
-  }
-
-  @override
-  Future<Map<Artist, int>> getAllArtists() async {
-    return artistData;
-  }
-
-  @override
-  Future<List<Word>> getSomeChosenWords(int amount) async {
-    return words;
-  }
-
-  @override
   Future<bool> saveWord(Word word) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Word>> getAllWords() {
+    // TODO: implement getAllWords
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Word>> getWordsByAlbumId(String albumId) {
+    // TODO: implement getWordsByAlbumId
     throw UnimplementedError();
   }
 }

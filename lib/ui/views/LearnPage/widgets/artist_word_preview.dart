@@ -1,11 +1,15 @@
+import 'dart:math';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
+import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
 import '../artist_specific_screen.dart';
 
-class ArtistWordList extends StatelessWidget {
-  final Map<Artist, int> data;
+class ArtistWordPreview extends StatelessWidget {
+  final List<ArtistSpecificData> data;
 
-  const ArtistWordList({Key key, @required this.data}) : super(key: key);
+  const ArtistWordPreview({Key key, @required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,9 @@ class ArtistWordList extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ArtistSpecificScreen(),
+          builder: (context) => ArtistSpecificScreen(
+            data: data,
+          ),
         )),
         child: Column(
           children: [
@@ -38,9 +44,9 @@ class ArtistWordList extends StatelessWidget {
               ),
             ),
             Divider(color: Colors.white54),
-            ...data.entries.map((e) => _ArtistWordTile(
-                  artist: e.key,
-                  wordcount: e.value,
+            ...data.sublist(0, min(3, data.length)).map((e) => _ArtistWordTile(
+                  artist: e.artist,
+                  wordcount: e.words.length,
                 )),
             Divider(color: Colors.white54),
             Container(
@@ -69,7 +75,7 @@ class _ArtistWordTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: NetworkImage(artist.thumbnailUrl),
+        backgroundImage: CachedNetworkImageProvider(artist.thumbnailUrl),
       ),
       title: Text(
         artist.name,
@@ -80,7 +86,7 @@ class _ArtistWordTile extends StatelessWidget {
         ),
       ),
       trailing: Text(
-        wordcount.toString() + ' entries',
+        wordcount.toString() + ' words',
         style: TextStyle(fontSize: 20),
       ),
     );

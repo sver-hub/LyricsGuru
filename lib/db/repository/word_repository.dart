@@ -1,3 +1,4 @@
+import 'package:lyrics_guru/busines_logic/models/track.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
 import 'package:lyrics_guru/db/database.dart';
 import 'package:lyrics_guru/db/repository/repository.dart';
@@ -48,5 +49,14 @@ class WordRepository extends Repository<Word> {
         .rawQuery('SELECT COUNT (*) from ${Word.TABLE_NAME}');
     int count = Sqflite.firstIntValue(x);
     return count;
+  }
+
+  Future<List<String>> getFeaturedTrackIds(Word word) async {
+    List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
+        Word.TABLE_NAME + '_' + Track.TABLE_NAME,
+        columns: [Track.TABLE_NAME + Track.COLUMN_ID],
+        where: '${Word.TABLE_NAME}${Word.COLUMN_ID} = ?',
+        whereArgs: [word.id]);
+    return queryData.map((e) => e[Track.TABLE_NAME + Track.COLUMN_ID]).toList();
   }
 }

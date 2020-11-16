@@ -1,16 +1,21 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:lyrics_guru/busines_logic/models/word.dart';
 import '../word_list_screen.dart';
 
-class ChosenWords extends StatelessWidget {
-  final List<String> data;
+class ChosenWordsPreview extends StatelessWidget {
+  final List<Word> words;
 
-  const ChosenWords({Key key, @required this.data}) : super(key: key);
+  const ChosenWordsPreview({Key key, @required this.words}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WordListScreen.chosen(),
+        builder: (context) => WordListScreen(
+          words: words,
+        ),
       )),
       child: Container(
         decoration: BoxDecoration(
@@ -41,7 +46,10 @@ class ChosenWords extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: double.infinity,
               child: Wrap(spacing: 15, runSpacing: 15, children: [
-                ...data.map((e) => _WordWrapper(e)).toList(),
+                ...words
+                    .sublist(0, min(14, words.length))
+                    .map((e) => _WordWrapper(e.word))
+                    .toList(),
                 _WordWrapper('...And More')
               ]),
             ),

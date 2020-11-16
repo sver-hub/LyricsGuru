@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
+import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_list_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:provider/provider.dart';
@@ -10,28 +11,19 @@ import 'quiz_screen.dart';
 import 'word_learn_screen.dart';
 import 'widgets/header.dart';
 
-enum Mode { artist, chosen }
-
 class WordListScreen extends StatefulWidget {
-  final Artist artist;
-  final Mode _mode;
-  final String _title;
-  final String _subtitle;
+  List<Word> words;
+  ArtistSpecificData artistData;
+  String _title;
+  String _subtitle;
 
-  WordListScreen.artist({Key key, this.artist})
-      : this._title = artist.name,
-        this._subtitle =
-            'Learn words to better understand meaning of this artist\'s songs',
-        this._mode = Mode.artist,
-        super(key: key);
-
-  WordListScreen.chosen({Key key})
-      : this.artist = null,
-        this._title = 'Chosen by You',
-        this._subtitle =
-            'Learn this words to become better at understanding your favourive songs',
-        this._mode = Mode.chosen,
-        super(key: key);
+  WordListScreen({Key key, this.artistData, this.words}) {
+    this._title = artistData != null ? artistData.artist.name : 'Chosen by You';
+    this._subtitle = artistData != null
+        ? 'Learn words to better understand meaning of this artist\'s songs'
+        : 'Learn this words to become better at understanding your favourive songs';
+    if (artistData != null) words = artistData.words;
+  }
 
   @override
   _WordListScreenState createState() => _WordListScreenState();
@@ -42,15 +34,7 @@ class _WordListScreenState extends State<WordListScreen> {
 
   @override
   void initState() {
-    switch (widget._mode) {
-      case Mode.artist:
-        model.loadDataOfArtist(widget.artist.name);
-        break;
-      case Mode.chosen:
-        model.loadDataOfChosen();
-        break;
-      default:
-    }
+    model.loadData(widget.words);
     super.initState();
   }
 

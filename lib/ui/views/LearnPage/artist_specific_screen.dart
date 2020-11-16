@@ -1,5 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lyrics_guru/busines_logic/models/artist.dart';
+import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,9 @@ import 'word_list_screen.dart';
 import 'widgets/header.dart';
 
 class ArtistSpecificScreen extends StatefulWidget {
+  final List<ArtistSpecificData> data;
+
+  const ArtistSpecificScreen({Key key, this.data}) : super(key: key);
   @override
   _ArtistSpecificScreenState createState() => _ArtistSpecificScreenState();
 }
@@ -17,7 +21,7 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
 
   @override
   void initState() {
-    model.loadData();
+    model.loadData(widget.data);
     super.initState();
   }
 
@@ -31,18 +35,20 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
           colors: [Colors.orange[900], Colors.black],
         ),
       ),
-      child: CustomScrollView(
-        physics: BouncingScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: Header(
-              title: 'Artist-specific',
-              subtitle:
-                  'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
+      child: SafeArea(
+        child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Header(
+                title: 'Artist-specific',
+                subtitle:
+                    'Learn words that are unique to your favourite artists, as well as most and least frequently used words',
+              ),
             ),
-          ),
-          buildList(model),
-        ],
+            buildList(model),
+          ],
+        ),
       ),
     );
   }
@@ -52,10 +58,9 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
       create: (context) => viewModel,
       child: Consumer<ArtistSpecificScreenViewModel>(
         builder: (context, model, child) => SliverList(
-          delegate: SliverChildListDelegate(model.artistData.entries
+          delegate: SliverChildListDelegate(model.artistData
               .map((e) => _Tile(
-                    artist: e.key,
-                    wordcount: e.value,
+                    artistData: e,
                   ))
               .toList()),
         ),
@@ -65,30 +70,28 @@ class _ArtistSpecificScreenState extends State<ArtistSpecificScreen> {
 }
 
 class _Tile extends StatelessWidget {
-  final Artist artist;
-  final int wordcount;
+  final ArtistSpecificData artistData;
 
   const _Tile({
     Key key,
-    this.artist,
-    this.wordcount,
+    this.artistData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WordListScreen.artist(
-          artist: artist,
-        ),
-      )),
+          builder: (context) => WordListScreen(
+                artistData: artistData,
+              ))),
       contentPadding: EdgeInsets.all(10),
       leading: CircleAvatar(
         radius: 30,
-        backgroundImage: NetworkImage(artist.thumbnailUrl),
+        backgroundImage:
+            CachedNetworkImageProvider(artistData.artist.thumbnailUrl),
       ),
       title: Text(
-        artist.name,
+        artistData.artist.name,
         style: TextStyle(
           fontSize: 22,
           letterSpacing: 1,
@@ -96,7 +99,7 @@ class _Tile extends StatelessWidget {
         ),
       ),
       trailing: Text(
-        wordcount.toString() + ' entries',
+        artistData.words.length.toString() + ' words',
         style: TextStyle(fontSize: 20),
       ),
     );

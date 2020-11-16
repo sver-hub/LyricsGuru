@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
@@ -52,7 +53,7 @@ class _CarouselCard extends StatelessWidget {
             child: ClipRRect(
               //borderRadius: BorderRadius.circular(20.0),
               child: Image(
-                image: NetworkImage(this.imgUrl),
+                image: CachedNetworkImageProvider(this.imgUrl),
                 fit: BoxFit.cover,
               ),
             ),
