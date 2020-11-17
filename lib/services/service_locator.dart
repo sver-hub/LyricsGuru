@@ -13,6 +13,8 @@ import 'package:lyrics_guru/services/learn/learn_service.dart';
 import 'package:lyrics_guru/services/learn/learn_service_fake.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
 import 'package:lyrics_guru/services/library/library_service_implementation.dart';
+import 'package:lyrics_guru/services/lyrics/lyrics_service.dart';
+import 'package:lyrics_guru/services/lyrics/lyrics_service_implementation.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service_implementation.dart';
 
@@ -26,6 +28,8 @@ void setupServiceLocator() {
       .registerLazySingleton<AuthService>(() => AuthServiceImplementation());
   serviceLocator.registerLazySingleton<SpotifyService>(
       () => SpotifyServiceImplementation());
+  serviceLocator.registerLazySingleton<LyricsService>(
+      () => LyricsServiceImplementation());
 
   serviceLocator
       .registerFactory<ArtistsScreenViewModel>(() => ArtistsScreenViewModel());

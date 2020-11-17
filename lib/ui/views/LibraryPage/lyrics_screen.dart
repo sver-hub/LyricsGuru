@@ -80,14 +80,23 @@ class _LyricsScreenState extends State<LyricsScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: SizedBox(
-              width: double.infinity,
-              child: Text(
-                widget.track.lyrics ?? 'lyrics',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
+            child: Column(
+              children: [
+                ..._getLines(widget.track.lyrics).map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        e,
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           SizedBox(
@@ -105,5 +114,14 @@ class _LyricsScreenState extends State<LyricsScreen> {
         ],
       ),
     );
+  }
+
+  List<String> _getLines(String text) {
+    if (text == null)
+      return [
+        'Either This Track Is Instrumental',
+        'Or Lyrics Are Not Accessible'
+      ];
+    return text.split('\n');
   }
 }

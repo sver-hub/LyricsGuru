@@ -38,4 +38,9 @@ class LibraryServiceImplementation extends LibraryService {
     if (!result) return result;
     return await _trackRepository.save(track);
   }
+
+  @override
+  Future<bool> saveTrack(Track track) async {
+    return await _trackRepository.save(track);
+  }
 }
