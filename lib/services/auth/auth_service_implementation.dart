@@ -11,7 +11,7 @@ class AuthServiceImplementation extends AuthService {
     if (users.isEmpty) {
       return User();
     }
-    print(users[0].token);
+    print(users[0].refreshToken);
     return users[0];
   }
 

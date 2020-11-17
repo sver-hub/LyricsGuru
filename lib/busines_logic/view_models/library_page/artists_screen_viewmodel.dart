@@ -23,7 +23,6 @@ class ArtistsScreenViewModel extends ChangeNotifier {
   void fetchData() async {
     var stream = _spotifyService.getStreamOfSavedTracks();
     print('getting stream: ' + stream.toString());
-    print('token: ' + _spotifyService.getToken());
     await for (var spotifyTrack in stream) {
       print('spotifyTrack' + spotifyTrack.toString());
       Track track = _spotifyService.convertToTrack(spotifyTrack);

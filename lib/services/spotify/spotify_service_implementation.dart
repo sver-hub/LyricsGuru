@@ -7,12 +7,14 @@ import 'package:spotify/spotify.dart' as Spotify;
 class SpotifyServiceImplementation extends SpotifyService {
   Spotify.Spotify spotify = Spotify.Spotify(
       clientId: '6835c2dadf634991b30d7052e3b43a4a',
-      redirectUrl: 'lyrics-guru://callback',
-      scopes: ['user-library-read']);
+      clientSecret: '36ed6b35fb1b4d419929ba708fa18b0a');
 
   @override
-  Future<bool> authenticate() async {
-    return await spotify.authenticate();
+  Future<String> authenticate() async {
+    final grant = await spotify.authorize(
+        redirectUri: 'lyrics-guru://callback', scopes: ['user-library-read']);
+    if (grant == null || grant.refreshToken == null) return null;
+    return grant.refreshToken;
   }
 
   @override
@@ -65,12 +67,13 @@ class SpotifyServiceImplementation extends SpotifyService {
   }
 
   @override
-  String getToken() {
-    return spotify.token;
+  void authenticateWithToken(String token) async {
+    final grant = await spotify.refreshToken(refreshToken: token);
+    if (grant == null) throw Exception('authenticateWithToken');
   }
 
   @override
-  void authenticateWithToken(String token) {
-    spotify.token = token;
+  Future<Spotify.User> getUserData() async {
+    return await spotify.api.me();
   }
 }

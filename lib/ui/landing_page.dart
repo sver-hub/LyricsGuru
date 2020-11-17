@@ -37,7 +37,7 @@ class _LandingPageState extends State<LandingPage> {
               child: MyProgressIndicator(),
             ),
           );
-        } else if (model.user.token == null) {
+        } else if (model.user.refreshToken == null) {
           print('auth');
           return AuthScreen(model: model);
         } else {

@@ -301,7 +301,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7fce84286e6955ed14b92b0840b50a83a8554676"
+      resolved-ref: "2d5034e5f1d9485cdbd3143c304884092dd3bf49"
       url: "git@github.com:stulov/spotify.git"
     source: git
     version: "0.0.1"
@@ -388,7 +388,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.3"
+    version: "1.7.4"
   xdg_directories:
     dependency: transitive
     description:
