@@ -7,9 +7,9 @@ import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 
 class AuthModel extends ChangeNotifier {
-  AuthService _authService = serviceLocator<AuthService>();
-  SpotifyService _spotifyService = serviceLocator<SpotifyService>();
-  UserRepository _userRepository = repositoryLocator<UserRepository>();
+  final _authService = serviceLocator<AuthService>();
+  final _spotifyService = serviceLocator<SpotifyService>();
+  final _userRepository = repositoryLocator<UserRepository>();
 
   User _user;
 

@@ -9,6 +9,8 @@ abstract class LibraryService {
 
   Future<List<Track>> getTracksByAlbumId(String albumId);
 
+  Future<Track> getTrackById(String trackId);
+
   Future<bool> saveCompleteByTrack(Track track);
 
   Future<bool> saveTrack(Track track);

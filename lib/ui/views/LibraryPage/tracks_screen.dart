@@ -19,7 +19,7 @@ class TracksScreen extends StatefulWidget {
 }
 
 class _TracksScreenState extends State<TracksScreen> {
-  TracksScreenViewModel model = serviceLocator<TracksScreenViewModel>();
+  final model = serviceLocator<TracksScreenViewModel>();
 
   @override
   void initState() {
@@ -112,7 +112,11 @@ class _TracksScreenState extends State<TracksScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 50),
-                  child: AnalyseButton(),
+                  child: AnalyseButton(
+                    onPressed: () {
+                      model.analyze();
+                    },
+                  ),
                 ),
               ],
             ),

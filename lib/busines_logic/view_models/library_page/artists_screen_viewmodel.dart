@@ -7,8 +7,8 @@ import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 import 'package:sorted_list/sorted_list.dart';
 
 class ArtistsScreenViewModel extends ChangeNotifier {
-  final LibraryService _libraryService = serviceLocator<LibraryService>();
-  final SpotifyService _spotifyService = serviceLocator<SpotifyService>();
+  final _libraryService = serviceLocator<LibraryService>();
+  final _spotifyService = serviceLocator<SpotifyService>();
 
   List<Artist> _artists = SortedList<Artist>(
       (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));

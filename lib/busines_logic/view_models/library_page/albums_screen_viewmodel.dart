@@ -3,9 +3,11 @@ import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/services/word/word_service.dart';
 
 class AlbumsScreenViewModel extends ChangeNotifier {
-  final LibraryService _libraryService = serviceLocator<LibraryService>();
+  final _libraryService = serviceLocator<LibraryService>();
+  final _wordService = serviceLocator<WordService>();
 
   List<Album> _albums = [];
   List<Album> get albums => _albums;
@@ -26,5 +28,9 @@ class AlbumsScreenViewModel extends ChangeNotifier {
         ? a.releaseDate.compareTo(b.releaseDate)
         : b.releaseDate.compareTo(a.releaseDate));
     notifyListeners();
+  }
+
+  void analyze() {
+    _wordService.analyseByArtistId(_artist.id);
   }
 }

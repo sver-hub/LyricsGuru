@@ -43,4 +43,9 @@ class LibraryServiceImplementation extends LibraryService {
   Future<bool> saveTrack(Track track) async {
     return await _trackRepository.save(track);
   }
+
+  @override
+  Future<Track> getTrackById(String trackId) async {
+    return await _trackRepository.getById(trackId);
+  }
 }

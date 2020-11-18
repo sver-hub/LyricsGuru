@@ -17,6 +17,8 @@ import 'package:lyrics_guru/services/lyrics/lyrics_service.dart';
 import 'package:lyrics_guru/services/lyrics/lyrics_service_implementation.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service_implementation.dart';
+import 'package:lyrics_guru/services/word/word_service.dart';
+import 'package:lyrics_guru/services/word/word_service_fake.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -30,6 +32,7 @@ void setupServiceLocator() {
       () => SpotifyServiceImplementation());
   serviceLocator.registerLazySingleton<LyricsService>(
       () => LyricsServiceImplementation());
+  serviceLocator.registerLazySingleton<WordService>(() => WordServiceFake());
 
   serviceLocator
       .registerFactory<ArtistsScreenViewModel>(() => ArtistsScreenViewModel());

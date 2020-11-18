@@ -19,7 +19,7 @@ class AlbumsScreen extends StatefulWidget {
 }
 
 class _AlbumsScreenState extends State<AlbumsScreen> {
-  AlbumsScreenViewModel model = serviceLocator<AlbumsScreenViewModel>();
+  final model = serviceLocator<AlbumsScreenViewModel>();
 
   @override
   void initState() {
@@ -105,7 +105,11 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
-                  child: AnalyseButton(),
+                  child: AnalyseButton(
+                    onPressed: () {
+                      model.analyze();
+                    },
+                  ),
                 ),
               ],
             ),

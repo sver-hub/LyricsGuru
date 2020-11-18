@@ -4,10 +4,12 @@ import 'package:lyrics_guru/busines_logic/models/track.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
 import 'package:lyrics_guru/services/lyrics/lyrics_service.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/services/word/word_service.dart';
 
 class TracksScreenViewModel extends ChangeNotifier {
-  LibraryService _libraryService = serviceLocator<LibraryService>();
-  LyricsService _lyricsService = serviceLocator<LyricsService>();
+  final _libraryService = serviceLocator<LibraryService>();
+  final _lyricsService = serviceLocator<LyricsService>();
+  final _wordService = serviceLocator<WordService>();
 
   List<Track> _tracks = [];
   List<Track> get tracks => _tracks;
@@ -35,5 +37,9 @@ class TracksScreenViewModel extends ChangeNotifier {
         print(track.title + ' ' + isSaved.toString());
       }
     }
+  }
+
+  void analyze() {
+    _wordService.analyseByAlbumId(_album.id);
   }
 }
