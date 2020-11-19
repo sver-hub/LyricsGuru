@@ -13,23 +13,23 @@ class WordRepository extends Repository<Word> {
   }
 
   @override
-  Future<Word> getById(String id) async {
+  Future<Word> getById(String word) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Word.TABLE_NAME,
-        where: '${Word.COLUMN_ID} = ?',
-        whereArgs: [id]);
+        where: '${Word.COLUMN_WORD} = ?',
+        whereArgs: [word]);
 
+    if (queryData == null || queryData.length == 0) return null;
     if (queryData.length > 1) throw Exception('Bad DB');
-    if (queryData.length == 0) return null;
 
     return Word.fromMap(queryData[0]);
   }
 
   @override
   Future<bool> save(Word model) async {
-    var map = model.toMap();
-    final id = map[Word.COLUMN_ID];
-    Word inDb = await getById(id);
+    final map = model.toMap();
+    final word = map[Word.COLUMN_WORD];
+    Word inDb = await getById(word);
 
     if (inDb == null) {
       int inserted = await DatabaseProvider.db.insert(Word.TABLE_NAME, map);
@@ -38,7 +38,7 @@ class WordRepository extends Repository<Word> {
     }
 
     int updated = await DatabaseProvider.db.update(Word.TABLE_NAME, map,
-        where: '${Word.COLUMN_ID} = ?', whereArgs: [id]);
+        where: '${Word.COLUMN_WORD} = ?', whereArgs: [word]);
     if (updated < 1) throw Exception('Failed update');
     return true;
   }
@@ -51,24 +51,25 @@ class WordRepository extends Repository<Word> {
     return count;
   }
 
-  Future<List<String>> getFeaturedTrackIds(Word word) async {
+  Future<List<String>> getFeaturedTrackIds(String word) async {
     List<Map<String, dynamic>> queryData = await DatabaseProvider.db.query(
         Word.TABLE_NAME + '_' + Track.TABLE_NAME,
         columns: [Track.TABLE_NAME + Track.COLUMN_ID],
-        where: '${Word.TABLE_NAME}${Word.COLUMN_ID} = ?',
-        whereArgs: [word.id]);
+        where: '${Word.COLUMN_WORD} = ?',
+        whereArgs: [word]);
     return queryData.map((e) => e[Track.TABLE_NAME + Track.COLUMN_ID]).toList();
   }
 
-  Future<bool> saveFeature(String wordId, String trackId) async {
+  Future<bool> saveFeature(String word, String trackId) async {
     final queryRes = await DatabaseProvider.db.query(
         Word.TABLE_NAME + '_' + Track.TABLE_NAME,
         where:
-            '${Word.TABLE_NAME}${Word.COLUMN_ID} = ? AND ${Track.TABLE_NAME}${Track.COLUMN_ID} = ?',
-        whereArgs: [wordId, trackId]);
+            '${Word.COLUMN_WORD} = ? AND ${Track.TABLE_NAME}${Track.COLUMN_ID} = ?',
+        whereArgs: [word, trackId]);
+
     if (queryRes == null || queryRes.length == 0) {
-      var map = {
-        '${Word.TABLE_NAME}${Word.COLUMN_ID}': wordId,
+      final map = {
+        '${Word.COLUMN_WORD}': word,
         '${Track.TABLE_NAME}${Track.COLUMN_ID}': trackId,
       };
       int inserted = await DatabaseProvider.db

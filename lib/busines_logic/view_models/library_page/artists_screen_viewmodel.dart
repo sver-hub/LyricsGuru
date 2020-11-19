@@ -3,6 +3,7 @@ import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
+import 'package:lyrics_guru/services/lyrics/lyrics_service.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 import 'package:sorted_list/sorted_list.dart';
@@ -10,8 +11,9 @@ import 'package:sorted_list/sorted_list.dart';
 class ArtistsScreenViewModel extends ChangeNotifier {
   final _libraryService = serviceLocator<LibraryService>();
   final _spotifyService = serviceLocator<SpotifyService>();
+  final _lyricsService = serviceLocator<LyricsService>();
 
-  List<Artist> _artists = SortedList<Artist>(
+  final _artists = SortedList<Artist>(
       (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
   List<Artist> get artists => _artists;
 
@@ -29,7 +31,7 @@ class ArtistsScreenViewModel extends ChangeNotifier {
 
     await for (var spotifyTrack in stream) {
       print('spotifyTrack ' + spotifyTrack.name);
-      Track track = _spotifyService.convertToTrack(spotifyTrack);
+      final track = _spotifyService.convertToTrack(spotifyTrack);
       if (!_artists.contains(track.album.artist))
         _artists.add(track.album.artist);
       if (!albums.contains(track.album)) albums.add(track.album);
@@ -37,13 +39,19 @@ class ArtistsScreenViewModel extends ChangeNotifier {
       notifyListeners();
     }
     for (final artist in _artists) {
-      _libraryService.saveArtist(artist);
+      await _libraryService.saveArtist(artist);
     }
     for (final album in albums) {
-      _libraryService.saveAlbum(album);
+      await _libraryService.saveAlbum(album);
     }
     for (final track in tracks) {
-      _libraryService.saveTrack(track);
+      await _libraryService.saveTrack(track);
+    }
+  }
+
+  void fetchLyrics() async {
+    for (final artist in _artists) {
+      await _lyricsService.fetchAndSaveLyricsOfArtist(artist);
     }
   }
 }

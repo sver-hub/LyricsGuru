@@ -35,7 +35,9 @@ class TrackRepository extends Repository<Track> {
       if (inserted < 1) throw Exception('Failed insert');
       return true;
     }
-
+    if (inDb.lyrics != null && map[Track.COLUMN_LYRICS] == null) {
+      map.remove(Track.COLUMN_LYRICS);
+    }
     int updated = await DatabaseProvider.db.update(Track.TABLE_NAME, map,
         where: '${Track.COLUMN_ID} = ?', whereArgs: [id]);
     if (updated < 1) throw Exception('Failed update');

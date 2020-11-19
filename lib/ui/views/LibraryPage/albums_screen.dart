@@ -107,7 +107,7 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 50),
                   child: AnalyseButton(
                     onPressed: () {
-                      model.analyze();
+                      model.analyze(context);
                     },
                   ),
                 ),
@@ -158,7 +158,7 @@ class _AlbumPreview extends StatelessWidget {
             children: [
               Expanded(
                 child: Hero(
-                  tag: this.album.coverUrl,
+                  tag: this.album.coverUrl + 'album',
                   child: ClipRRect(
                     child: Image(
                       fit: BoxFit.cover,

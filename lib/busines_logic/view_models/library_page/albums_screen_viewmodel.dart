@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
+import 'package:lyrics_guru/services/lyrics/lyrics_service.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:lyrics_guru/services/word/word_service.dart';
+import 'package:lyrics_guru/ui/views/LibraryPage/found_words_screen.dart';
 
 class AlbumsScreenViewModel extends ChangeNotifier {
   final _libraryService = serviceLocator<LibraryService>();
   final _wordService = serviceLocator<WordService>();
+  final _lyricsService = serviceLocator<LyricsService>();
 
   List<Album> _albums = [];
   List<Album> get albums => _albums;
@@ -28,9 +31,21 @@ class AlbumsScreenViewModel extends ChangeNotifier {
         ? a.releaseDate.compareTo(b.releaseDate)
         : b.releaseDate.compareTo(a.releaseDate));
     notifyListeners();
+    _loadLyrics();
   }
 
-  void analyze() {
-    _wordService.analyseByArtistId(_artist.id);
+  void _loadLyrics() async {
+    for (final album in _albums) {
+      _lyricsService.fetchAndSaveLyricsOfAlbum(album);
+    }
+  }
+
+  void analyze(BuildContext context) async {
+    final words = await _wordService.analyseByArtistId(_artist.id);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => FoundWordsScreen(
+        words: words,
+      ),
+    ));
   }
 }

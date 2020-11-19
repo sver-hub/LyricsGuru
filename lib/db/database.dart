@@ -30,17 +30,16 @@ class DatabaseProvider {
       'FOREIGN KEY (${Track.COLUMN_ALBUM_ID}) REFERENCES ${Album.TABLE_NAME} (${Album.COLUMN_ID}))';
 
   static const String _createTableWord = 'CREATE TABLE ${Word.TABLE_NAME} ('
-      '${Word.COLUMN_ID} TEXT PRIMARY KEY,'
-      '${Word.COLUMN_WORD} TEXT,'
+      '${Word.COLUMN_WORD} TEXT PRIMARY KEY,'
       '${Word.COLUMN_DEFINITION} TEXT,'
       '${Word.COLUMN_PROGRESS} INTEGER,'
       '${Word.COLUMN_LEARNT} INTEGER)';
 
   static const String _createTableWordTrack =
       'CREATE TABLE ${Word.TABLE_NAME}_${Track.TABLE_NAME} ('
-      '${Word.TABLE_NAME}${Word.COLUMN_ID} TEXT,'
+      '${Word.COLUMN_WORD} TEXT,'
       '${Track.TABLE_NAME}${Track.COLUMN_ID} TEXT,'
-      'PRIMARY KEY (${Word.TABLE_NAME}${Word.COLUMN_ID}, ${Track.TABLE_NAME}${Track.COLUMN_ID}))';
+      'PRIMARY KEY (${Word.COLUMN_WORD}, ${Track.TABLE_NAME}${Track.COLUMN_ID}))';
 
   static const String _createTableUser = 'CREATE TABLE ${User.TABLE_NAME} ('
       '${User.COLUMN_NAME} TEXT,'

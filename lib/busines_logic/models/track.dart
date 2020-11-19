@@ -1,3 +1,5 @@
+import 'package:quiver/core.dart';
+
 import 'album.dart';
 
 class Track {
@@ -46,4 +48,7 @@ class Track {
 
     return map;
   }
+
+  bool operator ==(o) => o is Track && o.id == id && o.title == title;
+  int get hashCode => hash2(id.hashCode, title.hashCode);
 }

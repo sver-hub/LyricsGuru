@@ -1,31 +1,25 @@
-import 'track.dart';
-
 class Word {
   static const TABLE_NAME = 'word';
-  static const COLUMN_ID = '_id';
   static const COLUMN_WORD = 'word';
   static const COLUMN_DEFINITION = 'definition';
   static const COLUMN_PROGRESS = 'progress';
   static const COLUMN_LEARNT = 'learnt';
   static const COLUMNS = [
-    COLUMN_ID,
     COLUMN_WORD,
     COLUMN_DEFINITION,
     COLUMN_PROGRESS,
     COLUMN_LEARNT
   ];
 
-  String id;
   String word;
   String definition;
   int _progress = 0;
   bool learnt = false;
   List<String> _occurances = [];
 
-  Word({this.id, this.word, this.definition});
+  Word({this.word, this.definition, String trackId}) : _occurances = [trackId];
 
   Word.fromMap(Map<String, dynamic> map) {
-    id = map[COLUMN_ID];
     word = map[COLUMN_WORD];
     definition = map[COLUMN_DEFINITION];
     _progress = map[COLUMN_PROGRESS];
@@ -40,18 +34,22 @@ class Word {
       COLUMN_LEARNT: learnt ? 1 : 0
     };
 
-    if (id != null) {
-      map[COLUMN_ID] = id;
-    }
-
     return map;
   }
 
   List<String> get occurances => _occurances;
+
   int get progress => _progress;
+
+  bool operator ==(o) => o is Word && o.word == word;
+  int get hashCode => word.hashCode;
 
   void addOccurance(String trackId) {
     this._occurances.add(trackId);
+  }
+
+  void addAllOccurances(List<String> trackIds) {
+    this._occurances.addAll(trackIds);
   }
 
   void toggleLearn() {

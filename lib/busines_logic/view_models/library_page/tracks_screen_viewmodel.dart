@@ -5,6 +5,7 @@ import 'package:lyrics_guru/services/library/library_service.dart';
 import 'package:lyrics_guru/services/lyrics/lyrics_service.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:lyrics_guru/services/word/word_service.dart';
+import 'package:lyrics_guru/ui/views/LibraryPage/found_words_screen.dart';
 
 class TracksScreenViewModel extends ChangeNotifier {
   final _libraryService = serviceLocator<LibraryService>();
@@ -25,7 +26,7 @@ class TracksScreenViewModel extends ChangeNotifier {
     });
     _tracks.sort((a, b) => a.trackNumber.compareTo(b.trackNumber));
     notifyListeners();
-    _loadLyrics();
+    //_loadLyrics();
   }
 
   void _loadLyrics() async {
@@ -39,7 +40,12 @@ class TracksScreenViewModel extends ChangeNotifier {
     }
   }
 
-  void analyze() {
-    _wordService.analyseByAlbumId(_album.id);
+  void analyze(BuildContext context) async {
+    final words = await _wordService.analyseByAlbumId(_album.id);
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => FoundWordsScreen(
+        words: words,
+      ),
+    ));
   }
 }

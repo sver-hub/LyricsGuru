@@ -51,11 +51,24 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
             ),
           ),
           SliverToBoxAdapter(
-            child: IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                model.fetchData();
-              },
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () {
+                    model.fetchData();
+                  },
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                IconButton(
+                  icon: Icon(Icons.text_fields),
+                  onPressed: () {
+                    model.fetchLyrics();
+                  },
+                )
+              ],
             ),
           ),
           buildList(model),

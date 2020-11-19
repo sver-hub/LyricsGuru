@@ -20,21 +20,24 @@ class LearnServiceFake extends LearnService {
   @override
   Future<List<Word>> getRandomWords(int amount) async {
     final artists = await _libraryService.getAllArtists();
-    final albums1 = await _libraryService.getAlbumsByArtistId(artists[4].id);
-    final albums2 = await _libraryService.getAlbumsByArtistId(artists[7].id);
-    final track1 = await _libraryService.getTracksByAlbumId(albums1[0].id);
-    final track2 = await _libraryService.getTracksByAlbumId(albums2[0].id);
-    final Word slave = Word(
-        word: 'Slave',
-        definition:
-            '(especially in the past) a person who is the legal property of another and is forced to obey them.');
-    slave.addOccurance(track1[0].id);
-    final Word bleach = Word(
-        word: 'Bleach',
-        definition:
-            'a chemical (typically a solution of sodium hypochlorite or hydrogen peroxide) used to make materials whiter or for sterilizing drains, sinks, etc.');
-    bleach.addOccurance(track2[0].id);
-    return [slave, bleach];
+    if (artists != null) {
+      final albums1 = await _libraryService.getAlbumsByArtistId(artists[4].id);
+      final albums2 = await _libraryService.getAlbumsByArtistId(artists[7].id);
+      final track1 = await _libraryService.getTracksByAlbumId(albums1[0].id);
+      final track2 = await _libraryService.getTracksByAlbumId(albums2[0].id);
+      final Word slave = Word(
+          word: 'Slave',
+          definition:
+              '(especially in the past) a person who is the legal property of another and is forced to obey them.');
+      slave.addOccurance(track1[0].id);
+      final Word bleach = Word(
+          word: 'Bleach',
+          definition:
+              'a chemical (typically a solution of sodium hypochlorite or hydrogen peroxide) used to make materials whiter or for sterilizing drains, sinks, etc.');
+      bleach.addOccurance(track2[0].id);
+      return [slave, bleach];
+    }
+    return [];
   }
 
   @override

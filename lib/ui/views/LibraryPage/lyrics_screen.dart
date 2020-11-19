@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/lyrics_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
-import 'package:lyrics_guru/services/word/word_service.dart';
 
 import 'widgets/analyse_button.dart';
 
@@ -15,7 +15,14 @@ class LyricsScreen extends StatefulWidget {
 }
 
 class _LyricsScreenState extends State<LyricsScreen> {
-  WordService _wordService = serviceLocator<WordService>();
+  LyricsScreenViewModel model = serviceLocator<LyricsScreenViewModel>();
+
+  @override
+  void initState() {
+    model.loadData(widget.track);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,13 +116,14 @@ class _LyricsScreenState extends State<LyricsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 50),
-                child: AnalyseButton(
-                  onPressed: () {
-                    _wordService.analyseLyrics(widget.track.lyrics);
-                  },
-                ),
-              ),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 50),
+                  child: model.analyzeEnabled
+                      ? AnalyseButton(
+                          onPressed: () {
+                            model.analyze(context);
+                          },
+                        )
+                      : null),
             ],
           ),
         ],

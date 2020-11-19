@@ -6,6 +6,7 @@ import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_definition
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_list_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/lyrics_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/auth/auth_service.dart';
 import 'package:lyrics_guru/services/auth/auth_service_implementation.dart';
@@ -18,7 +19,7 @@ import 'package:lyrics_guru/services/lyrics/lyrics_service_implementation.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 import 'package:lyrics_guru/services/spotify/spotify_service_implementation.dart';
 import 'package:lyrics_guru/services/word/word_service.dart';
-import 'package:lyrics_guru/services/word/word_service_fake.dart';
+import 'package:lyrics_guru/services/word/word_service_implementation.dart';
 
 GetIt serviceLocator = GetIt.instance;
 
@@ -32,7 +33,8 @@ void setupServiceLocator() {
       () => SpotifyServiceImplementation());
   serviceLocator.registerLazySingleton<LyricsService>(
       () => LyricsServiceImplementation());
-  serviceLocator.registerLazySingleton<WordService>(() => WordServiceFake());
+  serviceLocator
+      .registerLazySingleton<WordService>(() => WordServiceImplementation());
 
   serviceLocator
       .registerFactory<ArtistsScreenViewModel>(() => ArtistsScreenViewModel());
@@ -50,4 +52,6 @@ void setupServiceLocator() {
   serviceLocator.registerFactory<WordDefinitionScreenViewModel>(
       () => WordDefinitionScreenViewModel());
   serviceLocator.registerFactory<AuthModel>(() => AuthModel());
+  serviceLocator
+      .registerFactory<LyricsScreenViewModel>(() => LyricsScreenViewModel());
 }

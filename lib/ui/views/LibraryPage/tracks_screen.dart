@@ -38,7 +38,7 @@ class _TracksScreenState extends State<TracksScreen> {
             delegate: SliverChildListDelegate(
               [
                 Hero(
-                  tag: this.widget.album.coverUrl,
+                  tag: this.widget.album.coverUrl + 'album',
                   child: Stack(
                     children: [
                       Container(
@@ -114,7 +114,7 @@ class _TracksScreenState extends State<TracksScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 50),
                   child: AnalyseButton(
                     onPressed: () {
-                      model.analyze();
+                      model.analyze(context);
                     },
                   ),
                 ),
