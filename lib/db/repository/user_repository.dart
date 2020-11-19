@@ -13,7 +13,6 @@ class UserRepository extends Repository<User> {
 
   @override
   Future<User> getById(String id) {
-    // TODO: implement getById
     throw UnimplementedError();
   }
 

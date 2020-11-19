@@ -48,4 +48,34 @@ class LibraryServiceImplementation extends LibraryService {
   Future<Track> getTrackById(String trackId) async {
     return await _trackRepository.getById(trackId);
   }
+
+  @override
+  Future<Album> getAlbumById(String albumId) async {
+    return await _albumRepository.getById(albumId);
+  }
+
+  @override
+  Future<Artist> getArtistById(String artistId) async {
+    return await _artistRepository.getById(artistId);
+  }
+
+  @override
+  Future<Track> getCompletedTrackById(String trackId) async {
+    final track = await getTrackById(trackId);
+    final album = await getAlbumById(track.albumId);
+    final artist = await getArtistById(album.artistId);
+    album.artist = artist;
+    track.album = album;
+    return track;
+  }
+
+  @override
+  Future<bool> saveAlbum(Album album) {
+    _albumRepository.save(album);
+  }
+
+  @override
+  Future<bool> saveArtist(Artist artist) {
+    _artistRepository.save(artist);
+  }
 }

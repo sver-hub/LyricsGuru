@@ -32,6 +32,7 @@ dependencies:
   quiver: ^2.1.5
   cached_network_image: ^2.3.3
   sorted_list: ^0.1.0
+  lemmatizer: ^1.0.0
   spotify: 
     git: git@github.com:stulov/spotify.git
 

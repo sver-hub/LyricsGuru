@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
+import 'package:lyrics_guru/busines_logic/utils/carousel_data.dart';
 import '../word_definition_screen.dart';
 
 class WordCarousel extends StatelessWidget {
-  final Map<Word, String> data;
+  final List<CarouselData> data;
 
   const WordCarousel({Key key, @required this.data}) : super(key: key);
 
@@ -19,13 +20,11 @@ class WordCarousel extends StatelessWidget {
           height: height,
           viewportFraction: 1,
         ),
-        items: data.entries.map((e) {
-          Word word = e.key;
-          String imgUrl = e.value;
+        items: data.map((slide) {
           return _CarouselCard(
             height: height,
-            word: word,
-            imgUrl: imgUrl,
+            word: slide.word,
+            imgUrl: slide.imageUrl,
           );
         }).toList());
   }

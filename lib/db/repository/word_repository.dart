@@ -59,4 +59,22 @@ class WordRepository extends Repository<Word> {
         whereArgs: [word.id]);
     return queryData.map((e) => e[Track.TABLE_NAME + Track.COLUMN_ID]).toList();
   }
+
+  Future<bool> saveFeature(String wordId, String trackId) async {
+    final queryRes = await DatabaseProvider.db.query(
+        Word.TABLE_NAME + '_' + Track.TABLE_NAME,
+        where:
+            '${Word.TABLE_NAME}${Word.COLUMN_ID} = ? AND ${Track.TABLE_NAME}${Track.COLUMN_ID} = ?',
+        whereArgs: [wordId, trackId]);
+    if (queryRes == null || queryRes.length == 0) {
+      var map = {
+        '${Word.TABLE_NAME}${Word.COLUMN_ID}': wordId,
+        '${Track.TABLE_NAME}${Track.COLUMN_ID}': trackId,
+      };
+      int inserted = await DatabaseProvider.db
+          .insert(Word.TABLE_NAME + '_' + Track.TABLE_NAME, map);
+      if (inserted < 1) return false;
+    }
+    return true;
+  }
 }

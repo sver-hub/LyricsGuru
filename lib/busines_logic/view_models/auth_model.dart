@@ -23,7 +23,7 @@ class AuthModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void authenticate() async {
+  Future<void> authenticate() async {
     final token = await _spotifyService.authenticate();
     print(token);
     if (token != null) {

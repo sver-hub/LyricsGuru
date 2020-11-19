@@ -20,7 +20,7 @@ class Word {
   String definition;
   int _progress = 0;
   bool learnt = false;
-  List<Track> _occurances = [];
+  List<String> _occurances = [];
 
   Word({this.id, this.word, this.definition});
 
@@ -47,11 +47,11 @@ class Word {
     return map;
   }
 
-  List<Track> get occurances => _occurances;
+  List<String> get occurances => _occurances;
   int get progress => _progress;
 
-  void addOccurance(Track track) {
-    this._occurances.add(track);
+  void addOccurance(String trackId) {
+    this._occurances.add(trackId);
   }
 
   void toggleLearn() {

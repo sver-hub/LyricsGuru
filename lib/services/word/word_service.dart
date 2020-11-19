@@ -1,13 +1,11 @@
-import 'package:lyrics_guru/busines_logic/models/word.dart';
-
 abstract class WordService {
-  Future<List<Word>> analyseLyrics(String lyrics);
+  Future<List<String>> analyseLyrics(String lyrics);
 
-  Future<bool> analyseByAlbumId(String albumId);
+  Future<List<String>> analyseByAlbumId(String albumId);
 
-  Future<bool> analyseByArtistId(String artistId);
+  Future<List<String>> analyseByArtistId(String artistId);
 
-  Future<bool> analyseByTrackId(String trackId);
+  Future<List<String>> analyseByTrackId(String trackId);
 
   static const CONTRACTIONS = {
     "ain't": "am not",

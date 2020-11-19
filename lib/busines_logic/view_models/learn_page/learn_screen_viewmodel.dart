@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
 import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
+import 'package:lyrics_guru/busines_logic/utils/carousel_data.dart';
 import 'package:lyrics_guru/services/learn/learn_service.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
@@ -12,8 +13,8 @@ class LearnScreenViewModel extends ChangeNotifier {
   LearnService _learnService = serviceLocator<LearnService>();
   LibraryService _libraryService = serviceLocator<LibraryService>();
 
-  Map<Word, String> _carousel = {};
-  Map<Word, String> get carousel => _carousel;
+  List<CarouselData> _carousel = [];
+  List<CarouselData> get carousel => _carousel;
 
   List<ArtistSpecificData> _artistSpecific = [];
   List<ArtistSpecificData> get artistSpecific => _artistSpecific;
@@ -23,21 +24,22 @@ class LearnScreenViewModel extends ChangeNotifier {
 
   void loadData() async {
     List<Word> carouselWords = await _learnService.getRandomWords(5);
-    _carousel = prepareCarouselData(carouselWords);
+    _carousel = await prepareCarouselSlides(carouselWords);
     _artistSpecific = await prepareArtistSpecific();
     _chosenWords = await _learnService.getChosenWords();
     notifyListeners();
   }
 
-  Map<Word, String> prepareCarouselData(List<Word> words) {
+  Future<List<CarouselData>> prepareCarouselSlides(List<Word> words) async {
     final rng = Random();
-    Map<Word, String> carouselData = Map();
-    words.forEach((word) {
-      final imgUrl = word.occurances[rng.nextInt(word.occurances.length)].album
-          .artist.thumbnailUrl;
-      carouselData[word] = imgUrl;
-    });
-    return carouselData;
+    final carouselDatas = List<CarouselData>();
+    for (final word in words) {
+      final randomTrack = await _libraryService.getCompletedTrackById(
+          word.occurances[rng.nextInt(word.occurances.length)]);
+      final imgUrl = randomTrack.album.artist.thumbnailUrl;
+      carouselDatas.add(CarouselData(word, imgUrl));
+    }
+    return carouselDatas;
   }
 
   Future<List<ArtistSpecificData>> prepareArtistSpecific() async {

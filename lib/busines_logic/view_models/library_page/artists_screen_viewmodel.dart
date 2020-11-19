@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
@@ -21,15 +22,28 @@ class ArtistsScreenViewModel extends ChangeNotifier {
   }
 
   void fetchData() async {
-    var stream = _spotifyService.getStreamOfSavedTracks();
+    final stream = _spotifyService.getStreamOfSavedTracks();
     print('getting stream: ' + stream.toString());
+    final albums = List<Album>();
+    final tracks = List<Track>();
+
     await for (var spotifyTrack in stream) {
-      print('spotifyTrack' + spotifyTrack.toString());
+      print('spotifyTrack ' + spotifyTrack.name);
       Track track = _spotifyService.convertToTrack(spotifyTrack);
-      await _libraryService.saveCompleteByTrack(track);
       if (!_artists.contains(track.album.artist))
         _artists.add(track.album.artist);
+      if (!albums.contains(track.album)) albums.add(track.album);
+      tracks.add(track);
       notifyListeners();
+    }
+    for (final artist in _artists) {
+      _libraryService.saveArtist(artist);
+    }
+    for (final album in albums) {
+      _libraryService.saveAlbum(album);
+    }
+    for (final track in tracks) {
+      _libraryService.saveTrack(track);
     }
   }
 }

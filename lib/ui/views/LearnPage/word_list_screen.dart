@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
 import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_list_screen_viewmodel.dart';
@@ -11,6 +10,7 @@ import 'quiz_screen.dart';
 import 'word_learn_screen.dart';
 import 'widgets/header.dart';
 
+// ignore: must_be_immutable
 class WordListScreen extends StatefulWidget {
   List<Word> words;
   ArtistSpecificData artistData;
