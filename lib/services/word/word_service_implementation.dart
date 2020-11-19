@@ -34,7 +34,7 @@ class WordServiceImplementation extends WordService {
       }
     }
 
-    return words..sort((a, b) => a.word.compareTo(b.word));
+    return words;
   }
 
   @override
@@ -55,7 +55,7 @@ class WordServiceImplementation extends WordService {
       }
     }
 
-    return words..sort((a, b) => a.word.compareTo(b.word));
+    return words;
   }
 
   @override
@@ -72,7 +72,7 @@ class WordServiceImplementation extends WordService {
   Future<List<Word>> analyseLyrics(String lyrics, String trackId) async {
     final uniques = await _normalizeAndGetUniques(lyrics);
     final words = uniques.map((e) => Word(word: e, trackId: trackId)).toList();
-    return words..sort((a, b) => a.word.compareTo(b.word));
+    return words;
   }
 
   Future<List<String>> _normalizeAndGetUniques(String lyrics) async {

@@ -6,6 +6,7 @@ import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_definition
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_list_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/library_page/found_words_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/lyrics_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/auth/auth_service.dart';
@@ -54,4 +55,6 @@ void setupServiceLocator() {
   serviceLocator.registerFactory<AuthModel>(() => AuthModel());
   serviceLocator
       .registerFactory<LyricsScreenViewModel>(() => LyricsScreenViewModel());
+  serviceLocator.registerFactory<FoundWordsScreenViewModel>(
+      () => FoundWordsScreenViewModel());
 }

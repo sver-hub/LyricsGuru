@@ -14,10 +14,11 @@ class Word {
   String word;
   String definition;
   int _progress = 0;
-  bool learnt = false;
+  bool learnt;
   List<String> _occurances = [];
 
-  Word({this.word, this.definition, String trackId}) : _occurances = [trackId];
+  Word({this.word, this.definition, String trackId, this.learnt = false})
+      : _occurances = [trackId];
 
   Word.fromMap(Map<String, dynamic> map) {
     word = map[COLUMN_WORD];
@@ -50,10 +51,6 @@ class Word {
 
   void addAllOccurances(List<String> trackIds) {
     this._occurances.addAll(trackIds);
-  }
-
-  void toggleLearn() {
-    this.learnt = !this.learnt;
   }
 
   void addProgress(int amount) {
