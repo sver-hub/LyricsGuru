@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lyrics_guru/busines_logic/view_models/status_model.dart';
 import 'package:lyrics_guru/ui/views/HomePage/home_screen.dart';
 import 'package:lyrics_guru/ui/views/LearnPage/learn_screen.dart';
 import 'package:lyrics_guru/ui/views/LibraryPage/artists_screen.dart';
+import 'package:provider/provider.dart';
 
 List<Widget> allScreens = [HomeScreen(), ArtistsScreen(), LearnScreen()];
 
@@ -70,33 +72,36 @@ class _NavScreenState extends State<NavScreen>
         return false;
       },
       child: Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: allScreens.asMap().entries.map((entry) {
-            int index = entry.key;
-            Widget screen = entry.value;
-            final Widget view = FadeTransition(
-              opacity:
-                  _faders[index].drive(CurveTween(curve: Curves.fastOutSlowIn)),
-              child: KeyedSubtree(
-                key: _pageKeys[index],
-                child: PageView(
-                  navKey: _navKeys[index],
-                  screen: screen,
+        body: ChangeNotifierProvider<StatusModel>(
+          create: (context) => StatusModel(),
+          child: Stack(
+            fit: StackFit.expand,
+            children: allScreens.asMap().entries.map((entry) {
+              int index = entry.key;
+              Widget screen = entry.value;
+              final Widget view = FadeTransition(
+                opacity: _faders[index]
+                    .drive(CurveTween(curve: Curves.fastOutSlowIn)),
+                child: KeyedSubtree(
+                  key: _pageKeys[index],
+                  child: PageView(
+                    navKey: _navKeys[index],
+                    screen: screen,
+                  ),
                 ),
-              ),
-            );
-            if (index == _selectedIndex) {
-              _faders[index].forward();
-              return view;
-            } else {
-              _faders[index].reverse();
-              if (_faders[index].isAnimating) {
-                return IgnorePointer(child: view);
+              );
+              if (index == _selectedIndex) {
+                _faders[index].forward();
+                return view;
+              } else {
+                _faders[index].reverse();
+                if (_faders[index].isAnimating) {
+                  return IgnorePointer(child: view);
+                }
+                return Offstage(child: view);
               }
-              return Offstage(child: view);
-            }
-          }).toList(),
+            }).toList(),
+          ),
         ),
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
@@ -108,6 +113,7 @@ class _NavScreenState extends State<NavScreen>
             showUnselectedLabels: true,
             onTap: (int idx) => setState(() {
               _selectedIndex = idx;
+              if (idx == 2) {}
             }),
             items: [
               new BottomNavigationBarItem(

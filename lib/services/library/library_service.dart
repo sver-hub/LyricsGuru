@@ -24,4 +24,6 @@ abstract class LibraryService {
   Future<bool> saveArtist(Artist artist);
 
   Future<bool> saveAlbum(Album album);
+
+  Future<void> fetchLibrary();
 }

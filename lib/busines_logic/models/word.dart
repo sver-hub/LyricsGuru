@@ -17,8 +17,12 @@ class Word {
   bool learnt;
   List<String> _occurances = [];
 
-  Word({this.word, this.definition, String trackId, this.learnt = false})
-      : _occurances = [trackId];
+  Word(
+      {this.word,
+      this.definition,
+      List<String> occurances,
+      this.learnt = false})
+      : _occurances = occurances ?? [];
 
   Word.fromMap(Map<String, dynamic> map) {
     word = map[COLUMN_WORD];

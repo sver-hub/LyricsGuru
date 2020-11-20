@@ -21,11 +21,14 @@ class LearnScreenViewModel extends ChangeNotifier {
   List<Word> _chosenWords = [];
   List<Word> get chosenWords => _chosenWords;
 
+  bool loaded = false;
+
   void loadData() async {
-    //final carouselWords = await _learnService.getRandomWords(5);
-    _carousel = await prepareCarouselSlides([]); //carouselWords);
+    final carouselWords = await _learnService.getRandomWords(5);
+    _carousel = await prepareCarouselSlides(carouselWords);
     _artistSpecific = await prepareArtistSpecific();
     _chosenWords = await _learnService.getChosenWords();
+    loaded = true;
     notifyListeners();
   }
 

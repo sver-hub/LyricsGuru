@@ -20,7 +20,7 @@ class LearnServiceFake extends LearnService {
   @override
   Future<List<Word>> getRandomWords(int amount) async {
     final artists = await _libraryService.getAllArtists();
-    if (artists != null) {
+    if (artists != null && artists.length > 7) {
       final albums1 = await _libraryService.getAlbumsByArtistId(artists[4].id);
       final albums2 = await _libraryService.getAlbumsByArtistId(artists[7].id);
       final track1 = await _libraryService.getTracksByAlbumId(albums1[0].id);

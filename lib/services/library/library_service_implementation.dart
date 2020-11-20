@@ -6,11 +6,14 @@ import 'package:lyrics_guru/db/repository/artist_repository.dart';
 import 'package:lyrics_guru/db/repository/repository_locator.dart';
 import 'package:lyrics_guru/db/repository/track_repository.dart';
 import 'package:lyrics_guru/services/library/library_service.dart';
+import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/services/spotify/spotify_service.dart';
 
 class LibraryServiceImplementation extends LibraryService {
-  ArtistRepository _artistRepository = repositoryLocator<ArtistRepository>();
-  AlbumRepository _albumRepository = repositoryLocator<AlbumRepository>();
-  TrackRepository _trackRepository = repositoryLocator<TrackRepository>();
+  final _artistRepository = repositoryLocator<ArtistRepository>();
+  final _albumRepository = repositoryLocator<AlbumRepository>();
+  final _trackRepository = repositoryLocator<TrackRepository>();
+  final _spotifyService = serviceLocator<SpotifyService>();
 
   @override
   Future<List<Album>> getAlbumsByArtistId(String artistId) async {
@@ -70,12 +73,39 @@ class LibraryServiceImplementation extends LibraryService {
   }
 
   @override
-  Future<bool> saveAlbum(Album album) {
-    _albumRepository.save(album);
+  Future<bool> saveAlbum(Album album) async {
+    return await _albumRepository.save(album);
   }
 
   @override
-  Future<bool> saveArtist(Artist artist) {
-    _artistRepository.save(artist);
+  Future<bool> saveArtist(Artist artist) async {
+    return await _artistRepository.save(artist);
+  }
+
+  @override
+  Future<void> fetchLibrary() async {
+    final stream = _spotifyService.getStreamOfSavedTracks();
+    print('getting stream: ' + stream.toString());
+    final artists = List<Artist>();
+    final albums = List<Album>();
+    final tracks = List<Track>();
+
+    await for (var spotifyTrack in stream) {
+      print('spotifyTrack ' + spotifyTrack.name);
+      final track = _spotifyService.convertToTrack(spotifyTrack);
+      if (!artists.contains(track.album.artist))
+        artists.add(track.album.artist);
+      if (!albums.contains(track.album)) albums.add(track.album);
+      tracks.add(track);
+    }
+    for (final artist in artists) {
+      await saveArtist(artist);
+    }
+    for (final album in albums) {
+      await saveAlbum(album);
+    }
+    for (final track in tracks) {
+      await saveTrack(track);
+    }
   }
 }

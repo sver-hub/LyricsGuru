@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
+import 'package:lyrics_guru/busines_logic/view_models/status_model.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:provider/provider.dart';
 
@@ -13,13 +14,14 @@ class ArtistsScreen extends StatefulWidget {
 }
 
 class _ArtistsScreenState extends State<ArtistsScreen> {
-  ArtistsScreenViewModel model = serviceLocator<ArtistsScreenViewModel>();
+  final model = serviceLocator<ArtistsScreenViewModel>();
+  bool stasusSet = false;
 
-  @override
-  void initState() {
-    model.loadData();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   model.loadData();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,10 +83,21 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
     return ChangeNotifierProvider<ArtistsScreenViewModel>(
       create: (context) => viewModel,
       child: Consumer<ArtistsScreenViewModel>(
-          builder: (context, model, child) => SliverList(
-                delegate: SliverChildListDelegate(
-                  [for (final artist in model.artists) _ArtistPreview(artist)],
-                ),
+          builder: (context, model, child) => Consumer<StatusModel>(
+                builder: (context, status, child) {
+                  if (!stasusSet) {
+                    model.setStatus(status);
+                    stasusSet = true;
+                  }
+                  return SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        for (final artist in model.artists)
+                          _ArtistPreview(artist)
+                      ],
+                    ),
+                  );
+                },
               )),
     );
   }

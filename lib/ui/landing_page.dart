@@ -3,7 +3,7 @@ import 'package:lyrics_guru/busines_logic/view_models/auth_model.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
 import 'package:lyrics_guru/ui/views/AuthPage/auth_screen.dart';
 import 'package:lyrics_guru/ui/views/nav_screen.dart';
-import 'package:lyrics_guru/ui/widgets/progress_indicator.dart';
+import 'package:lyrics_guru/ui/widgets/my_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget {

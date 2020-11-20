@@ -71,7 +71,8 @@ class WordServiceImplementation extends WordService {
   @override
   Future<List<Word>> analyseLyrics(String lyrics, String trackId) async {
     final uniques = await _normalizeAndGetUniques(lyrics);
-    final words = uniques.map((e) => Word(word: e, trackId: trackId)).toList();
+    final words =
+        uniques.map((e) => Word(word: e, occurances: [trackId])).toList();
     return words;
   }
 
