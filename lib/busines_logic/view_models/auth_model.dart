@@ -23,6 +23,11 @@ class AuthModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setLibraryFetched(bool fetched) async {
+    _user.libraryFetched = fetched;
+    await _userRepository.save(_user);
+  }
+
   Future<void> authenticate() async {
     final token = await _spotifyService.authenticate();
     print(token);

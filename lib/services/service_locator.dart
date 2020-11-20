@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:lyrics_guru/busines_logic/view_models/auth_model.dart';
+import 'package:lyrics_guru/busines_logic/view_models/fetch_model.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/learn_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/word_definition_screen_viewmodel.dart';
@@ -57,4 +58,5 @@ void setupServiceLocator() {
       .registerFactory<LyricsScreenViewModel>(() => LyricsScreenViewModel());
   serviceLocator.registerFactory<FoundWordsScreenViewModel>(
       () => FoundWordsScreenViewModel());
+  serviceLocator.registerFactory<FetchModel>(() => FetchModel());
 }

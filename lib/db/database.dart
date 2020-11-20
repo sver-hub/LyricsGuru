@@ -44,9 +44,10 @@ class DatabaseProvider {
   static const String _createTableUser = 'CREATE TABLE ${User.TABLE_NAME} ('
       '${User.COLUMN_NAME} TEXT,'
       '${User.COLUMN_IMAGE_URL} TEXT,'
-      '${User.COLUMN_REFRESH_TOKEN} TEXT)';
+      '${User.COLUMN_REFRESH_TOKEN} TEXT,'
+      '${User.COLUMN_LIBRARY_FETCHED} INTEGER)';
 
-  bool deleted = true;
+  bool deleted = false;
   DatabaseProvider._();
   static final DatabaseProvider db = DatabaseProvider._();
 

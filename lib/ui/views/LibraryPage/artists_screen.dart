@@ -15,13 +15,6 @@ class ArtistsScreen extends StatefulWidget {
 
 class _ArtistsScreenState extends State<ArtistsScreen> {
   final model = serviceLocator<ArtistsScreenViewModel>();
-  bool stasusSet = false;
-
-  // @override
-  // void initState() {
-  //   model.loadData();
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -83,22 +76,20 @@ class _ArtistsScreenState extends State<ArtistsScreen> {
     return ChangeNotifierProvider<ArtistsScreenViewModel>(
       create: (context) => viewModel,
       child: Consumer<ArtistsScreenViewModel>(
-          builder: (context, model, child) => Consumer<StatusModel>(
-                builder: (context, status, child) {
-                  if (!stasusSet) {
-                    model.setStatus(status);
-                    stasusSet = true;
-                  }
-                  return SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        for (final artist in model.artists)
-                          _ArtistPreview(artist)
-                      ],
-                    ),
-                  );
-                },
-              )),
+        builder: (context, model, child) => Consumer<StatusModel>(
+          builder: (context, status, child) {
+            if (model.status == null) {
+              model.setStatus(status);
+            }
+            return child;
+          },
+          child: SliverList(
+            delegate: SliverChildListDelegate(
+              [for (final artist in model.artists) _ArtistPreview(artist)],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -18,12 +18,13 @@ class ArtistsScreenViewModel extends ChangeNotifier {
 
   void loadData() async {
     _artists.addAll(await _libraryService.getAllArtists());
-    if (_artists.length == 0) fetchData();
     notifyListeners();
   }
 
   void setStatus(StatusModel status) {
     this.status = status;
+    this.status.libraryReady = true;
+    this.status.fetchingLibrary = false;
     loadData();
   }
 
@@ -33,6 +34,7 @@ class ArtistsScreenViewModel extends ChangeNotifier {
     await _libraryService.fetchLibrary();
     status.libraryReady = true;
     status.fetchingLibrary = false;
+    notifyListeners();
   }
 
   void fetchLyrics() async {
