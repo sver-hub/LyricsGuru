@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
 import 'package:lyrics_guru/busines_logic/utils/carousel_data.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/learn_route_generator.dart';
 import '../word_definition_screen.dart';
 
 class WordCarousel extends StatelessWidget {
@@ -41,9 +42,8 @@ class _CarouselCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => DefinitionScreen(word),
-      )),
+      onTap: () => Navigator.of(context)
+          .pushNamed(LearnRouteGenerator.DEFINITION, arguments: word),
       child: Stack(
         children: [
           Container(

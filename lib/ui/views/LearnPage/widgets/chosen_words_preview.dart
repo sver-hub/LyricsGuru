@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/word.dart';
-import '../word_list_screen.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/learn_route_generator.dart';
 
 class ChosenWordsPreview extends StatelessWidget {
   final List<Word> words;
@@ -12,11 +12,8 @@ class ChosenWordsPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WordListScreen(
-          words: words,
-        ),
-      )),
+      onTap: () => Navigator.of(context)
+          .pushNamed(LearnRouteGenerator.WORD_LIST, arguments: words),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.grey[900],

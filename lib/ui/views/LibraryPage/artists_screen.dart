@@ -4,9 +4,8 @@ import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/artists_screen_viewmodel.dart';
 import 'package:lyrics_guru/busines_logic/view_models/status_model.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/library_route_generator.dart';
 import 'package:provider/provider.dart';
-
-import 'albums_screen.dart';
 
 class ArtistsScreen extends StatefulWidget {
   @override
@@ -102,11 +101,8 @@ class _ArtistPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AlbumsScreen(
-          artist: this.artist,
-        ),
-      )),
+      onTap: () => Navigator.of(context)
+          .pushNamed(LibraryRouteGenerator.ALBUMS, arguments: artist),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -130,6 +126,7 @@ class _ArtistPreview extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1.2,
               ),
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

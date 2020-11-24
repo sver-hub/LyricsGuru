@@ -4,9 +4,9 @@ import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/track.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/tracks_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/library_route_generator.dart';
 import 'package:provider/provider.dart';
 
-import 'lyrics_screen.dart';
 import 'widgets/analyse_button.dart';
 
 class TracksScreen extends StatefulWidget {
@@ -147,13 +147,8 @@ class _TrackTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => LyricsScreen(
-            track: this.track,
-          ),
-        ),
-      ),
+      onTap: () => Navigator.of(context)
+          .pushNamed(LibraryRouteGenerator.LYRICS, arguments: track),
       title: Text(
         this.track.title,
         style: TextStyle(

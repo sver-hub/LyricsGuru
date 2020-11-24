@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
 import 'package:lyrics_guru/busines_logic/view_models/learn_page/artist_specific_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/learn_route_generator.dart';
 import 'package:provider/provider.dart';
-import 'word_list_screen.dart';
 import 'widgets/header.dart';
 
 class ArtistSpecificScreen extends StatefulWidget {
@@ -80,10 +80,8 @@ class _Tile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => WordListScreen(
-                artistData: artistData,
-              ))),
+      onTap: () => Navigator.of(context)
+          .pushNamed(LearnRouteGenerator.WORD_LIST, arguments: artistData),
       contentPadding: EdgeInsets.all(10),
       leading: CircleAvatar(
         radius: 30,

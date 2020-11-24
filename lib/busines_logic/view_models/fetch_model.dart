@@ -19,8 +19,8 @@ class FetchModel extends ChangeNotifier {
 
     _status.fetchingLibrary = true;
     await _libraryService.fetchLibrary();
-    await _auth.setLibraryFetched(true);
     _status.fetchingLibrary = false;
     _status.libraryReady = true;
+    await _auth.setLibraryFetched(true);
   }
 }

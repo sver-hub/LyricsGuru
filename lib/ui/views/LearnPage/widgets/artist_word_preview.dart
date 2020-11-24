@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/utils/artist_specific_data.dart';
-import '../artist_specific_screen.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/learn_route_generator.dart';
 
 class ArtistWordPreview extends StatelessWidget {
   final List<ArtistSpecificData> data;
@@ -18,11 +18,8 @@ class ArtistWordPreview extends StatelessWidget {
         color: Colors.grey[900],
       ),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ArtistSpecificScreen(
-            data: data,
-          ),
-        )),
+        onTap: () => Navigator.of(context)
+            .pushNamed(LearnRouteGenerator.ARTIST_SPECIFIC, arguments: data),
         child: Column(
           children: [
             ListTile(

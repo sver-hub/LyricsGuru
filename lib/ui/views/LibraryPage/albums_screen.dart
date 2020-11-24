@@ -4,9 +4,9 @@ import 'package:lyrics_guru/busines_logic/models/album.dart';
 import 'package:lyrics_guru/busines_logic/models/artist.dart';
 import 'package:lyrics_guru/busines_logic/view_models/library_page/albums_screen_viewmodel.dart';
 import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/ui/navigation/route_generators/library_route_generator.dart';
 import 'package:provider/provider.dart';
 
-import 'tracks_screen.dart';
 import 'widgets/analyse_button.dart';
 
 class AlbumsScreen extends StatefulWidget {
@@ -125,11 +125,9 @@ class _AlbumsScreenState extends State<AlbumsScreen> {
       child: Consumer<AlbumsScreenViewModel>(
         builder: (context, model, child) => SliverGrid.count(
           crossAxisCount: 2,
-          children: model.albums
-              .map((a) => _AlbumPreview(
-                    album: a,
-                  ))
-              .toList(),
+          children: [
+            for (final album in model.albums) _AlbumPreview(album: album)
+          ],
           crossAxisSpacing: 20.0,
           mainAxisSpacing: 20.0,
           childAspectRatio: 0.77,
@@ -147,11 +145,8 @@ class _AlbumPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => TracksScreen(
-          album: this.album,
-        ),
-      )),
+      onTap: () => Navigator.of(context)
+          .pushNamed(LibraryRouteGenerator.TRACKS, arguments: album),
       child: SizedBox.expand(
         child: Container(
           child: Column(

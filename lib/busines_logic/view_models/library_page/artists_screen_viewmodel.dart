@@ -23,8 +23,8 @@ class ArtistsScreenViewModel extends ChangeNotifier {
 
   void setStatus(StatusModel status) {
     this.status = status;
-    this.status.libraryReady = true;
-    this.status.fetchingLibrary = false;
+    if (!this.status.libraryReady) this.status.libraryReady = true;
+    if (this.status.fetchingLibrary) this.status.fetchingLibrary = false;
     loadData();
   }
 
