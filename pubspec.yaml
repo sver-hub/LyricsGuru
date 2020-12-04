@@ -34,7 +34,7 @@ dependencies:
   sorted_list: ^0.1.0
   lemmatizer: ^1.0.0
   spotify: 
-    git: git@github.com:stulov/spotify.git
+    git: https://github.com/stulov/spotify.git
 
 dev_dependencies:
   flutter_test:

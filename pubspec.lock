@@ -309,7 +309,7 @@ packages:
       path: "."
       ref: HEAD
       resolved-ref: "2d5034e5f1d9485cdbd3143c304884092dd3bf49"
-      url: "git@github.com:stulov/spotify.git"
+      url: "https://github.com/stulov/spotify.git"
     source: git
     version: "0.0.1"
   sqflite:
