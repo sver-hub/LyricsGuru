@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/navScreen.dart';
 import 'package:flutter/services.dart';
+import 'package:lyrics_guru/db/repository/repository_locator.dart';
+import 'package:lyrics_guru/services/service_locator.dart';
+import 'package:lyrics_guru/ui/landing_page.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  setupServiceLocator();
+  setupRepositoryLocator();
+  runApp(MyApp());
+}
 
 mixin PortraitModeMixin on StatelessWidget {
   @override
@@ -69,7 +75,7 @@ class MyApp extends StatelessWidget with PortraitModeMixin {
               )),
             ),
           )),
-      home: NavScreen(), //HomePage(title: 'Flutter Demo Home Page'),
+      home: LandingPage(), //NavScreen(),
     );
   }
 }
